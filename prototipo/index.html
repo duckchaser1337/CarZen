@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CarZen · Protótipos</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&amp;display=swap">
+<style>
+  :root { --bg: #ECEEF1; --ink: #14161B; --muted: #5F6573; --line: #D6DAE1; --accent: #2448C8; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: Manrope, system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  header { max-width: 1420px; margin: 0 auto; padding: 36px 24px 4px; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; }
+  h1 { margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -0.03em; }
+  header p { margin: 6px 0 0; color: var(--muted); font-size: 15px; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .seg { display: flex; gap: 4px; padding: 4px; background: #DFE2E7; border-radius: 12px; }
+  .seg button, .reload { font: inherit; font-size: 13.5px; font-weight: 700; height: 40px; padding: 0 14px; border-radius: 9px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .reload { background: #fff; border: 1px solid var(--line); border-radius: 12px; height: 48px; }
+  .label { font-size: 13px; font-weight: 700; color: var(--muted); margin-right: 2px; }
+  main { max-width: 1420px; margin: 0 auto; padding: 28px 24px 56px; display: flex; flex-wrap: wrap; justify-content: center; gap: 56px 48px; }
+  figure { margin: 0; display: flex; flex-direction: column; gap: 16px; }
+  figcaption { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 6px; }
+  figcaption strong { font-size: 16px; font-weight: 800; }
+  figcaption span { font-size: 13px; color: var(--muted); }
+  figcaption a { flex: none; font-size: 13px; font-weight: 700; color: var(--accent); text-decoration: none; padding: 9px 12px; border-radius: 10px; background: #fff; border: 1px solid var(--line); }
+  figcaption a:hover { background: #F6F7F9; }
+  iframe { display: block; width: 390px; height: 844px; border: 0; border-radius: 38px; background: #fff; box-shadow: 0 0 0 10px #15171C, 0 30px 80px -24px rgba(0, 0, 0, 0.4); }
+  @media (max-width: 460px) {
+    header { padding-top: 24px; }
+    iframe { display: none; }
+    main { gap: 12px; }
+    figure { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>CarZen · protótipos</h1>
+    <p>Três estilos com a mesma lógica. Cada tela é interativa.</p>
+  </div>
+  <div class="controls">
+    <span class="label" id="garagem-label">Garagem inicial</span>
+    <div class="seg" role="group" aria-labelledby="garagem-label">
+      <button type="button" data-v="2 veículos" aria-pressed="true">2 veículos</button>
+      <button type="button" data-v="1 veículo" aria-pressed="false">1 veículo</button>
+    </div>
+    <button type="button" class="reload" id="reload">Reiniciar telas</button>
+  </div>
+</header>
+<main>
+  <figure>
+    <figcaption><span><strong>A · Clean</strong> · escolhido</span><a href="Main.dc.html" data-base="Main.dc.html">Abrir sozinho</a></figcaption>
+    <iframe title="Estilo A · Clean" src="Main.dc.html"></iframe>
+  </figure>
+  <figure>
+    <figcaption><span><strong>B · Cockpit</strong></span><a href="Cockpit.dc.html" data-base="Cockpit.dc.html">Abrir sozinho</a></figcaption>
+    <iframe title="Estilo B · Cockpit" src="Cockpit.dc.html"></iframe>
+  </figure>
+  <figure>
+    <figcaption><span><strong>C · Pop</strong></span><a href="Pop.dc.html" data-base="Pop.dc.html">Abrir sozinho</a></figcaption>
+    <iframe title="Estilo C · Pop" src="Pop.dc.html"></iframe>
+  </figure>
+</main>
+<script>
+  (function () {
+    var current = '2 veículos';
+    var buttons = document.querySelectorAll('.seg button');
+    function apply() {
+      var q = current === '2 veículos' ? '' : '?veiculosIniciais=' + encodeURIComponent(current);
+      document.querySelectorAll('figure').forEach(function (fig) {
+        var a = fig.querySelector('a'), frame = fig.querySelector('iframe');
+        a.href = a.dataset.base + q;
+        frame.src = a.dataset.base + q;
+      });
+      buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.v === current)); });
+    }
+    buttons.forEach(function (b) { b.addEventListener('click', function () { current = b.dataset.v; apply(); }); });
+    document.getElementById('reload').addEventListener('click', apply);
+  })();
+</script>
+</body>
+</html>

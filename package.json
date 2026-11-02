@@ -1,0 +1,14 @@
+{
+  "name": "carzen",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Protótipos do CarZen, app mobile de gestão veicular",
+  "scripts": {
+    "start": "node scripts/serve.js",
+    "test": "node scripts/test.js logica/logic.js && node scripts/check.js prototipo/Main.dc.html && node scripts/check.js prototipo/Cockpit.dc.html && node scripts/check.js prototipo/Pop.dc.html"
+  },
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}

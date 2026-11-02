@@ -20,19 +20,32 @@ App mobile de gestão veicular para uso diário de pessoa física. Este reposit�
 | `prototipo/Cockpit.dc.html` | B · Cockpit | Escuro, inspirado em painel de carro, com velocímetro de custo por km e números monoespaçados. |
 | `prototipo/Pop.dc.html` | C · Pop | Colorido e neo-brutalista: blocos de cor, bordas grossas e sombras chapadas. |
 
+## Rodar localmente
+
+Requer Node 18+.
+
+```bash
+npm install
+npm start
+```
+
+Abra http://localhost:5173 para ver os 3 estilos lado a lado. Cada um também abre sozinho em `/prototipo/Main.dc.html`, `/prototipo/Cockpit.dc.html` e `/prototipo/Pop.dc.html`. No topo da página, "1 veículo" mostra o fluxo de quem só tem um carro.
+
+Para testar no celular pela rede local, rode `HOST=0.0.0.0 npm start` (no PowerShell: `$env:HOST='0.0.0.0'; npm start`) e acesse `http://<ip-do-computador>:5173`. A porta muda com `PORT`.
+
+Os erros `<path> attribute d: Expected moveto…` no console são esperados. Eles vêm do navegador lendo o template cru antes do runtime assumir e não afetam nada.
+
 ## Estrutura
 
 ```
-prototipo/   artboards do canvas de design (.dc.html) e o índice canvas.json
+prototipo/   artboards (.dc.html), canvas.json, support.js (runtime local) e index.html (galeria)
 logica/      logic.js: dados de exemplo, base de modelos, métricas e assistente (compartilhado pelos 3 estilos)
-scripts/     test.js, check.js e splice.js (testes e utilitários em Node)
+scripts/     serve.js (servidor local), test.js, check.js e splice.js
 ```
 
-Os arquivos `.dc.html` são artboards do canvas de Design do Claude e dependem do runtime do canvas (`support.js`), então **não abrem direto no navegador**. Cada artboard tem uma cópia embutida da lógica; só a função `theme()` muda entre eles (o Cockpit também acrescenta valores para o velocímetro).
+Os arquivos `.dc.html` são artboards do canvas de Design do Claude. Dentro do canvas, o `support.js` vem do próprio canvas. Fora dele, `prototipo/support.js` faz esse papel: interpreta o formato (`{{ }}`, `<sc-if>`, `<sc-for>`, `class Component extends DCLogic`) e renderiza com React 18. Cada artboard tem uma cópia embutida da lógica; só a função `theme()` muda entre eles (o Cockpit também acrescenta valores para o velocímetro).
 
 ## Testes
-
-Requer Node 18+.
 
 ```bash
 node scripts/test.js logica/logic.js          # simula telas, formulários, troca de perfil e o assistente
