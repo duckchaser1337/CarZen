@@ -1,0 +1,1400 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Rodagem · Estilo Pop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;display=swap">
+<style>
+body{margin:0}
+*{box-sizing:border-box}
+button,input{font-family:inherit;font-size:inherit;color:inherit;margin:0}
+button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.dsp{font-family:'Bricolage Grotesque','DM Sans',system-ui,sans-serif;letter-spacing:-0.015em}
+.num{font-variant-numeric:tabular-nums}
+.noscroll{scrollbar-width:none}
+.noscroll::-webkit-scrollbar{display:none}
+.ic{fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.ln{stroke-width:3px;vector-effect:non-scaling-stroke;stroke-linejoin:round;stroke-linecap:round}
+.pp{transition:transform .16s cubic-bezier(.3,1.7,.5,1),box-shadow .16s}
+.pp:active{transform:translate(3px,3px)!important;box-shadow:1px 1px 0 #15131F!important}
+.pb{transition:transform .16s cubic-bezier(.3,1.7,.5,1)}
+.pb:active{transform:scale(.92)}
+.inp{width:100%;height:50px;border:2px solid #15131F;border-radius:14px;padding:0 14px;font-size:17px;background:#FFFFFF;color:#15131F;outline:none;transition:box-shadow .12s}
+.inp:focus{box-shadow:3px 3px 0 #6A4BFF}
+.inp::placeholder{color:#6B6680}
+button:focus-visible,input:focus-visible{outline:3px solid #6A4BFF;outline-offset:2px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@keyframes rise{from{transform:translateY(70px)}to{transform:none}}
+.sheet{animation:rise .34s cubic-bezier(.2,1.3,.4,1)}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.fade{animation:fade .2s ease}
+@keyframes pop{0%{transform:scale(.6) rotate(-5deg);opacity:0}100%{transform:scale(1) rotate(-1deg);opacity:1}}
+.toast{animation:pop .32s cubic-bezier(.2,1.6,.4,1) both}
+@keyframes blink{0%,80%,100%{transform:translateY(0);opacity:.35}40%{transform:translateY(-4px);opacity:1}}
+.dt{width:8px;height:8px;border-radius:50%;background:#15131F;display:block;animation:blink 1s infinite}
+.dt:nth-child(2){animation-delay:.15s}
+.dt:nth-child(3){animation-delay:.3s}
+@keyframes bob{0%,100%{transform:rotate(5deg)}50%{transform:rotate(1deg) translateY(-2px)}}
+.stk{animation:bob 3.2s ease-in-out infinite}
+@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.bar{transform-origin:bottom;animation:grow .55s cubic-bezier(.2,1.5,.4,1) both}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #EEEAFE; font-family: 'DM Sans', system-ui, sans-serif; color: #15131F; font-size: 15px">
+
+<sc-if value="{{isSelector}}" hint-placeholder-val="{{ true }}">
+<div class="noscroll fade" style="position: absolute; inset: 0; overflow-y: auto">
+<div style="position: relative; padding: 32px 20px 32px; display: flex; flex-direction: column; gap: 16px">
+  <span aria-hidden="true" style="position: absolute; top: -34px; right: -34px; width: 118px; height: 118px; border-radius: 50%; background: #FF6B4A; border: 2px solid #15131F"></span>
+  <span aria-hidden="true" style="position: absolute; top: 62px; right: 74px; width: 32px; height: 32px; border-radius: 9px; background: #3FD8A0; border: 2px solid #15131F; transform: rotate(14deg)"></span>
+  <div style="display: flex; align-items: center; gap: 10px; position: relative">
+    <span style="width: 44px; height: 44px; border-radius: 14px; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; box-shadow: 3px 3px 0 #15131F; display: flex; align-items: center; justify-content: center">
+      <svg class="ic" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17H3v-4.5l2.2-5.2A2 2 0 0 1 7 6h10a2 2 0 0 1 1.8 1.3L21 12.5V17h-2"></path><path d="M3 12.5h18"></path><path d="M9 17h6"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
+    </span>
+    <span class="dsp" style="font-size: 24px; font-weight: 800">Rodagem</span>
+  </div>
+  <h1 class="dsp" style="margin: 18px 0 0; font-size: 40px; font-weight: 800; line-height: 1; letter-spacing: -0.03em; position: relative">Qual carro você vai usar hoje?</h1>
+  <p style="margin: 0; font-size: 15px; line-height: 1.45; color: #3B3650; position: relative">O painel, os registros e o assistente mudam de acordo com o perfil escolhido.</p>
+  <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 4px">
+    <sc-for list="{{startCars}}" as="c" hint-placeholder-count="2">
+      <button class="pp" onClick="{{c.pick}}" style="width: 100%; text-align: left; background: #FFFFFF; border: 2px solid #15131F; border-radius: 22px; box-shadow: 5px 5px 0 #15131F; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+        <span style="display: flex; align-items: center; gap: 12px; width: 100%">
+          <span class="dsp" style="width: 52px; height: 52px; border-radius: 16px; background: #FFE04B; border: 2px solid #15131F; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; flex-shrink: 0">{{c.initials}}</span>
+          <span style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+            <span class="dsp" style="font-size: 20px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{c.apelido}}</span>
+            <span style="font-size: 13px; color: #3B3650">{{c.modelo}} · {{c.ano}} · {{c.placa}}</span>
+          </span>
+          <span style="width: 40px; height: 40px; border-radius: 50%; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+            <svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+          </span>
+        </span>
+        <span style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%">
+          <span style="display: flex; flex-direction: column; gap: 2px; background: #F4F1FF; border-radius: 12px; padding: 8px 10px">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #4A4560">Odômetro</span>
+            <span class="num" style="font-size: 13.5px; font-weight: 700">{{c.odo}}</span>
+          </span>
+          <span style="display: flex; flex-direction: column; gap: 2px; background: #F4F1FF; border-radius: 12px; padding: 8px 10px">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #4A4560">30 dias</span>
+            <span class="num" style="font-size: 13.5px; font-weight: 700">{{c.gasto30}}</span>
+          </span>
+          <span style="display: flex; flex-direction: column; gap: 2px; background: #F4F1FF; border-radius: 12px; padding: 8px 10px">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: #4A4560">Custo/km</span>
+            <span class="num" style="font-size: 13px; font-weight: 700">{{c.custoKm}}</span>
+          </span>
+        </span>
+      </button>
+    </sc-for>
+  </div>
+  <button class="pp" onClick="{{openAddCar}}" style="height: 56px; border: 2px dashed #15131F; border-radius: 18px; background: transparent; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; gap: 8px">
+    <svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+    Adicionar veículo
+  </button>
+  <div style="font-size: 12.5px; color: #4A4560; text-align: center">Hoje, {{hoje}} · {{carCount}} na garagem</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{isApp}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; display: flex; flex-direction: column">
+
+  <div style="display: flex; align-items: center; gap: 10px; padding: 14px 16px 12px; flex-shrink: 0">
+    <button class="pp" onClick="{{openSwitch}}" style="flex: 1; min-width: 0; height: 60px; display: flex; align-items: center; gap: 10px; background: #FFFFFF; border: 2px solid #15131F; border-radius: 18px; box-shadow: 3px 3px 0 #15131F; padding: 7px 12px 7px 7px; text-align: left">
+      <span class="dsp" style="width: 42px; height: 42px; border-radius: 12px; background: #FFE04B; border: 2px solid #15131F; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; flex-shrink: 0">{{car.initials}}</span>
+      <span style="display: flex; flex-direction: column; gap: 1px; flex: 1; min-width: 0">
+        <span class="dsp" style="font-size: 17px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{car.apelido}}</span>
+        <span style="font-size: 12.5px; color: #4A4560; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{car.modelo}} · {{car.odo}}</span>
+      </span>
+      <sc-if value="{{multi}}" hint-placeholder-val="{{ true }}">
+        <svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
+      </sc-if>
+    </button>
+    <button class="pp" onClick="{{addFuel}}" aria-label="Novo abastecimento" style="width: 60px; height: 60px; flex-shrink: 0; border-radius: 18px; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; box-shadow: 3px 3px 0 #15131F; display: flex; align-items: center; justify-content: center">
+      <svg class="ic" width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+    </button>
+  </div>
+
+  <div style="flex: 1; min-height: 0; position: relative">
+
+    <sc-if value="{{tabHome}}" hint-placeholder-val="{{ true }}">
+    <div class="noscroll" style="position: absolute; inset: 0; overflow-y: auto">
+    <div style="display: flex; flex-direction: column; gap: 18px; padding: 4px 16px 28px">
+
+      <div style="display: flex; gap: 8px">
+        <sc-for list="{{periods}}" as="p" hint-placeholder-count="3">
+          <button class="pp" onClick="{{p.pick}}" style="flex: 1; height: 44px; padding: 0 12px; border-radius: 999px; border: 2px solid {{p.bd}}; background: {{p.bg}}; color: {{p.fg}}; font-weight: 700; font-size: 14px; box-shadow: 2px 2px 0 #15131F">{{p.label}}</button>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{noLogs}}" hint-placeholder-val="{{ false }}">
+      <div style="position: relative; background: #FFE04B; border: 2px solid #15131F; border-radius: 24px; box-shadow: 5px 5px 0 #15131F; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+        <span class="stk" style="position: absolute; top: -13px; right: 16px; background: #3FD8A0; border: 2px solid #15131F; border-radius: 10px; padding: 4px 10px; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em">Perfil novo</span>
+        <div class="dsp" style="font-size: 24px; font-weight: 800; line-height: 1.05">Ainda sem registros</div>
+        <div style="font-size: 14px; line-height: 1.45">Enquanto isso, a estimativa vem da base do {{ref.modelo}}, rodando 1.000 km por mês:</div>
+        <div style="display: flex; align-items: baseline; gap: 6px">
+          <span class="dsp num" style="font-size: 40px; font-weight: 800; line-height: 1">{{ref.mes1000}}</span>
+          <span style="font-size: 14px; font-weight: 700">por mês</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+          <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 12px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #4A4560">Combustível</span>
+            <span class="num" style="font-size: 14px; font-weight: 800">{{ref.fuelMes}}</span>
+          </div>
+          <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 12px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #4A4560">Manutenção</span>
+            <span class="num" style="font-size: 14px; font-weight: 800">{{ref.maintMes}}</span>
+          </div>
+          <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 12px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #4A4560">Consumo</span>
+            <span class="num" style="font-size: 14px; font-weight: 800">{{ref.misto}} km/l</span>
+          </div>
+        </div>
+        <button class="pp" onClick="{{addFuel}}" style="height: 52px; border-radius: 16px; background: #15131F; color: #FFFFFF; border: 2px solid #15131F; box-shadow: 3px 3px 0 #6A4BFF; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 8px">
+          <svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V5.5A1.5 1.5 0 0 1 5.5 4h7A1.5 1.5 0 0 1 14 5.5V20"></path><path d="M3 20h12"></path><path d="M7 8h4"></path><path d="M14 10h1.5a1.5 1.5 0 0 1 1.5 1.5v4a1.5 1.5 0 0 0 3 0V8.5L17.5 6"></path></svg>
+          Registrar 1º abastecimento
+        </button>
+      </div>
+      </sc-if>
+
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+        <div style="grid-column: 1 / -1; position: relative; overflow: hidden; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; border-radius: 24px; box-shadow: 5px 5px 0 #15131F; padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 6px">
+          <span aria-hidden="true" style="position: absolute; right: -36px; bottom: -50px; width: 150px; height: 150px; border-radius: 50%; border: 20px solid #8670FF"></span>
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; position: relative">Gasto total</span>
+          <span class="dsp num" style="font-size: 48px; font-weight: 800; line-height: 1; position: relative">{{k.total}}</span>
+          <span style="font-size: 14px; position: relative">{{periodLabel}} · {{k.registros}} registros</span>
+          <span class="stk" style="position: absolute; top: 14px; right: 14px; background: #FFE04B; color: #15131F; border: 2px solid #15131F; border-radius: 12px; padding: 5px 10px; font-size: 13px; font-weight: 800">{{k.custoDia}}/dia</span>
+        </div>
+
+        <div style="grid-row: span 2; background: #FFE04B; border: 2px solid #15131F; border-radius: 24px; box-shadow: 5px 5px 0 #15131F; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase">Custo por km</span>
+          <span class="dsp num" style="font-size: 34px; font-weight: 800; line-height: 1">{{k.custoKm}}</span>
+          <span style="font-size: 13px">por km rodado</span>
+          <div style="flex: 1; min-height: 8px"></div>
+          <div style="border-top: 2px dashed #15131F; padding-top: 10px; display: flex; flex-direction: column; gap: 3px">
+            <span style="font-size: 12.5px">Referência do {{ref.modelo}}</span>
+            <span class="num" style="font-size: 18px; font-weight: 800">{{k.custoKmRef}}</span>
+          </div>
+          <sc-if value="{{k.hasCustoKm}}" hint-placeholder-val="{{ true }}">
+            <span style="align-self: flex-start; background: #FFFFFF; border: 2px solid #15131F; border-radius: 999px; padding: 4px 10px; font-size: 12.5px; font-weight: 800; color: {{k.custoKmColor}}">{{k.custoKmDiff}}</span>
+          </sc-if>
+        </div>
+
+        <div style="background: #3FD8A0; border: 2px solid #15131F; border-radius: 24px; box-shadow: 5px 5px 0 #15131F; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase">Consumo</span>
+          <div style="display: flex; align-items: baseline; gap: 4px">
+            <span class="dsp num" style="font-size: 30px; font-weight: 800; line-height: 1">{{k.consumo}}</span>
+            <span style="font-size: 13px; font-weight: 700">km/l</span>
+          </div>
+          <span style="font-size: 12.5px">ref. {{k.consumoRef}} km/l</span>
+          <sc-if value="{{k.hasConsumo}}" hint-placeholder-val="{{ true }}">
+            <span style="align-self: flex-start; background: #FFFFFF; border: 2px solid #15131F; border-radius: 999px; padding: 3px 9px; font-size: 12px; font-weight: 800; color: {{k.consumoColor}}">{{k.consumoDiff}}</span>
+          </sc-if>
+        </div>
+
+        <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 24px; box-shadow: 5px 5px 0 #15131F; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase">Km rodados</span>
+          <div style="display: flex; align-items: baseline; gap: 4px">
+            <span class="dsp num" style="font-size: 30px; font-weight: 800; line-height: 1">{{k.km}}</span>
+            <span style="font-size: 13px; font-weight: 700">km</span>
+          </div>
+          <span style="font-size: 12.5px; color: #3B3650">{{k.kmDia}} km por dia</span>
+        </div>
+
+        <div style="grid-column: 1 / -1; background: #FFFFFF; border: 2px solid #15131F; border-radius: 24px; box-shadow: 5px 5px 0 #15131F; padding: 14px 16px; display: flex; align-items: center; gap: 14px">
+          <span style="width: 52px; height: 52px; border-radius: 50%; background: #FF6B4A; border: 2px solid #15131F; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+            <svg class="ic" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"></rect><path d="M3.5 10h17"></path><path d="M8 3v4"></path><path d="M16 3v4"></path></svg>
+          </span>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+            <div style="display: flex; align-items: baseline; gap: 6px">
+              <span class="dsp num" style="font-size: 26px; font-weight: 800; line-height: 1">{{k.dias}} dias</span>
+              <span style="font-size: 13px">no período</span>
+            </div>
+            <span style="font-size: 13px; color: #3B3650">{{car.dias}} dias de uso no app, desde {{car.inicio}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+        <button class="pp" onClick="{{addFuel}}" style="height: 78px; border-radius: 20px; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; box-shadow: 4px 4px 0 #15131F; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-weight: 700; font-size: 13.5px">
+          <svg class="ic" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V5.5A1.5 1.5 0 0 1 5.5 4h7A1.5 1.5 0 0 1 14 5.5V20"></path><path d="M3 20h12"></path><path d="M7 8h4"></path><path d="M14 10h1.5a1.5 1.5 0 0 1 1.5 1.5v4a1.5 1.5 0 0 0 3 0V8.5L17.5 6"></path></svg>
+          <span>Abastecer</span>
+        </button>
+        <button class="pp" onClick="{{addMaint}}" style="height: 78px; border-radius: 20px; background: #FF6B4A; color: #15131F; border: 2px solid #15131F; box-shadow: 4px 4px 0 #15131F; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-weight: 700; font-size: 13.5px">
+          <svg class="ic" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5a4.5 4.5 0 0 0-5.6 5.6L3.5 16.5a2.1 2.1 0 0 0 3 3l5.4-5.4a4.5 4.5 0 0 0 5.6-5.6l-2.8 2.8-2.4-.6-.6-2.4z"></path></svg>
+          <span>Manutenção</span>
+        </button>
+        <button class="pp" onClick="{{goChat}}" style="height: 78px; border-radius: 20px; background: #FFE04B; color: #15131F; border: 2px solid #15131F; box-shadow: 4px 4px 0 #15131F; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; font-weight: 700; font-size: 13.5px">
+          <svg class="ic" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-4 4v-4H4z"></path><path d="M9 10.5h.01"></path><path d="M15 10.5h.01"></path></svg>
+          <span>Perguntar</span>
+        </button>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <h2 class="dsp" style="margin: 0; font-size: 22px; font-weight: 800">O que eu notei</h2>
+        <sc-for list="{{insights}}" as="i" hint-placeholder-count="3">
+          <div style="background: {{i.soft}}; border: 2px solid #15131F; border-radius: 18px; padding: 14px; display: flex; gap: 12px; align-items: flex-start">
+            <span style="width: 16px; height: 16px; margin-top: 2px; border-radius: 50%; background: {{i.color}}; border: 2px solid #15131F; flex-shrink: 0; display: block"></span>
+            <div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+              <div style="font-size: 15px; font-weight: 700; line-height: 1.3">{{i.title}}</div>
+              <div style="font-size: 13.5px; line-height: 1.45; color: #3B3650; white-space: pre-line">{{i.text}}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 24px; box-shadow: 5px 5px 0 #15131F; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px">
+          <h2 class="dsp" style="margin: 0; font-size: 20px; font-weight: 800">Últimos 6 meses</h2>
+          <span class="num" style="font-size: 12px; color: #4A4560">máx. {{chart.maxLabel}}</span>
+        </div>
+        <div style="display: flex; gap: 6px">
+          <sc-for list="{{chart.modes}}" as="mo" hint-placeholder-count="3">
+            <button class="pp" onClick="{{mo.pick}}" style="flex: 1; height: 44px; padding: 0 6px; border-radius: 999px; border: 2px solid {{mo.bd}}; background: {{mo.bg}}; color: {{mo.fg}}; font-weight: 700; font-size: 13px; white-space: nowrap; box-shadow: 2px 2px 0 #15131F">{{mo.label}}</button>
+          </sc-for>
+        </div>
+        <div style="background: #EEEAFE; border: 2px solid #15131F; border-radius: 16px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px">
+            <span style="font-weight: 700; font-size: 14px">{{chart.sel.label}}</span>
+            <span class="dsp num" style="font-size: 24px; font-weight: 800">{{chart.sel.total}}</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px">
+            <div style="display: flex; flex-direction: column; gap: 1px; min-width: 0">
+              <span style="font-size: 11px; color: #4A4560">Combustível</span>
+              <span class="num" style="font-size: 13px; font-weight: 700">{{chart.sel.fuel}}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1px; min-width: 0">
+              <span style="font-size: 11px; color: #4A4560">Manutenção</span>
+              <span class="num" style="font-size: 13px; font-weight: 700">{{chart.sel.maint}}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1px; min-width: 0">
+              <span style="font-size: 11px; color: #4A4560">Rodados</span>
+              <span class="num" style="font-size: 13px; font-weight: 700">{{chart.sel.km}}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1px; min-width: 0">
+              <span style="font-size: 11px; color: #4A4560">Por km</span>
+              <span class="num" style="font-size: 13px; font-weight: 700">{{chart.sel.custoKm}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="position: relative">
+          <sc-if value="{{chart.isBars}}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; align-items: flex-end; gap: 6px; height: 198px">
+              <sc-for list="{{chart.bars}}" as="b" hint-placeholder-count="6">
+                <button class="pb" onClick="{{b.pick}}" aria-label="Ver {{b.label}}" style="flex: 1; min-width: 0; height: 198px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 6px; background: transparent; border: 0; padding: 0; color: #15131F">
+                  <sc-if value="{{b.selected}}" hint-placeholder-val="{{ false }}">
+                    <span class="num" style="background: #15131F; color: #FFFFFF; border-radius: 8px; padding: 3px 6px; font-size: 11px; font-weight: 700; white-space: nowrap">{{b.short}}</span>
+                  </sc-if>
+                  <sc-if value="{{chart.isGastos}}" hint-placeholder-val="{{ true }}">
+                    <span class="bar" style="display: flex; flex-direction: column; width: 100%; max-width: 40px; border: 2px solid #15131F; border-radius: 12px 12px 6px 6px; overflow: hidden; background: #FFFFFF; opacity: {{b.op}}">
+                      <span style="display: block; height: {{b.maintH}}px; background: #FF6B4A"></span>
+                      <span style="display: block; height: {{b.fuelH}}px; background: #6A4BFF"></span>
+                    </span>
+                  </sc-if>
+                  <sc-if value="{{chart.isKm}}" hint-placeholder-val="{{ false }}">
+                    <span class="bar" style="display: block; width: 100%; max-width: 40px; height: {{b.valH}}px; background: #3FD8A0; border: 2px solid #15131F; border-radius: 12px 12px 6px 6px; opacity: {{b.op}}"></span>
+                  </sc-if>
+                  <span style="font-size: 12.5px; font-weight: 700; text-transform: capitalize">{{b.label}}</span>
+                </button>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{chart.isCusto}}" hint-placeholder-val="{{ false }}">
+            <div style="padding-top: 22px">
+              <div style="position: relative; height: 140px; margin: 0 4px; border-bottom: 2px solid #15131F">
+                <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible">
+                  <path d="{{chart.area}}" fill="#FFE04B" stroke="none"></path>
+                  <path class="ln" d="{{chart.line}}" fill="none" stroke="#15131F"></path>
+                </svg>
+                <sc-for list="{{chart.dots}}" as="d" hint-placeholder-count="6">
+                  <button class="pb" onClick="{{d.pick}}" aria-label="Selecionar mês" style="position: absolute; left: {{d.left}}; top: {{d.top}}; width: 44px; height: 44px; margin: -22px 0 0 -22px; background: transparent; border: 0; padding: 0; display: flex; align-items: center; justify-content: center; opacity: {{d.op}}">
+                    <span style="width: 18px; height: 18px; border-radius: 50%; background: #6A4BFF; border: 3px solid #15131F; display: block"></span>
+                  </button>
+                </sc-for>
+              </div>
+              <div style="display: flex; margin: 8px 4px 0">
+                <sc-for list="{{chart.bars}}" as="b" hint-placeholder-count="6">
+                  <span style="flex: 1; text-align: center; font-size: 12.5px; font-weight: 700; text-transform: capitalize">{{b.label}}</span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{chart.empty}}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 16px">
+              <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 14px; box-shadow: 3px 3px 0 #15131F; padding: 10px 14px; font-size: 13.5px; font-weight: 700; text-align: center">Sem registros nos últimos 6 meses ainda</div>
+            </div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{chart.isGastos}}" hint-placeholder-val="{{ true }}">
+          <div style="display: flex; gap: 16px; font-size: 12.5px; font-weight: 700">
+            <span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 4px; background: #6A4BFF; border: 2px solid #15131F; display: block"></span>Combustível</span>
+            <span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 14px; border-radius: 4px; background: #FF6B4A; border: 2px solid #15131F; display: block"></span>Manutenção</span>
+          </div>
+        </sc-if>
+      </div>
+
+      <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 24px; box-shadow: 5px 5px 0 #15131F; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+        <h2 class="dsp" style="margin: 0; font-size: 20px; font-weight: 800">Combustível × manutenção</h2>
+        <div style="display: flex; height: 28px; border: 2px solid #15131F; border-radius: 999px; overflow: hidden; background: #EEEAFE">
+          <div style="width: {{k.fuelW}}; background: #6A4BFF"></div>
+          <div style="width: {{k.maintW}}; background: #FF6B4A"></div>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+          <div style="display: flex; gap: 8px; align-items: flex-start">
+            <span style="width: 14px; height: 14px; margin-top: 3px; border-radius: 4px; background: #6A4BFF; border: 2px solid #15131F; display: block; flex-shrink: 0"></span>
+            <div style="display: flex; flex-direction: column; gap: 1px">
+              <span style="font-size: 13px; color: #4A4560">Combustível</span>
+              <span class="dsp num" style="font-size: 19px; font-weight: 800">{{k.fuel}}</span>
+              <span style="font-size: 12.5px">{{k.fuelPct}} do total</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: flex-start">
+            <span style="width: 14px; height: 14px; margin-top: 3px; border-radius: 4px; background: #FF6B4A; border: 2px solid #15131F; display: block; flex-shrink: 0"></span>
+            <div style="display: flex; flex-direction: column; gap: 1px">
+              <span style="font-size: 13px; color: #4A4560">Manutenção</span>
+              <span class="dsp num" style="font-size: 19px; font-weight: 800">{{k.maint}}</span>
+              <span style="font-size: 12.5px">{{k.maintPct}} do total</span>
+            </div>
+          </div>
+        </div>
+        <div style="font-size: 13px; color: #3B3650; border-top: 2px dashed #15131F; padding-top: 10px">Preço médio por litro: <b>{{k.precoMedio}}</b> · {{k.litros}} L no período</div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 24px; box-shadow: 5px 5px 0 #15131F; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <span style="width: 44px; height: 44px; border-radius: 14px; background: #FF6B4A; border: 2px solid #15131F; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+            <svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5a4.5 4.5 0 0 0-5.6 5.6L3.5 16.5a2.1 2.1 0 0 0 3 3l5.4-5.4a4.5 4.5 0 0 0 5.6-5.6l-2.8 2.8-2.4-.6-.6-2.4z"></path></svg>
+          </span>
+          <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+            <span style="font-size: 13px; color: #4A4560">Próxima revisão</span>
+            <span class="dsp num" style="font-size: 24px; font-weight: 800; line-height: 1.1">{{rev.next}}</span>
+          </div>
+          <sc-if value="{{rev.soon}}" hint-placeholder-val="{{ true }}">
+            <span class="stk" style="background: #FF6B4A; border: 2px solid #15131F; border-radius: 10px; padding: 4px 10px; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; flex-shrink: 0">Em breve</span>
+          </sc-if>
+        </div>
+        <div style="height: 20px; border: 2px solid #15131F; border-radius: 999px; background: #EEEAFE; overflow: hidden">
+          <div style="height: 100%; width: {{rev.pctW}}; background: #FF6B4A; border-right: 2px solid #15131F"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; gap: 8px; font-size: 13.5px">
+          <b class="num">Faltam {{rev.falta}}</b>
+          <span class="num">~{{rev.eta}} · {{rev.etaDate}}</span>
+        </div>
+        <div style="font-size: 12.5px; color: #4A4560">Custo médio de referência {{rev.custo}} · revisão a cada {{rev.iv}}</div>
+      </div>
+
+      <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 24px; box-shadow: 5px 5px 0 #15131F; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <h2 class="dsp" style="margin: 0; font-size: 20px; font-weight: 800">Você × referência</h2>
+          <span style="font-size: 13px; color: #4A4560">{{ref.nome}} · base estimada</span>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 13px; font-weight: 700">Consumo (km/l)</span>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <span style="width: 40px; font-size: 12.5px">Você</span>
+            <div style="flex: 1; height: 22px; border: 2px solid #15131F; border-radius: 8px; background: #F7F5FF; overflow: hidden"><div style="height: 100%; width: {{cmp.consumoW}}; background: #3FD8A0"></div></div>
+            <span class="num" style="width: 64px; text-align: right; font-size: 14px; font-weight: 800">{{k.consumo}}</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <span style="width: 40px; font-size: 12.5px">Ref.</span>
+            <div style="flex: 1; height: 22px; border: 2px solid #15131F; border-radius: 8px; background: #F7F5FF; overflow: hidden"><div style="height: 100%; width: {{cmp.consumoRefW}}; background: #C9BFFF"></div></div>
+            <span class="num" style="width: 64px; text-align: right; font-size: 14px; font-weight: 800">{{k.consumoRef}}</span>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 13px; font-weight: 700">Custo por km</span>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <span style="width: 40px; font-size: 12.5px">Você</span>
+            <div style="flex: 1; height: 22px; border: 2px solid #15131F; border-radius: 8px; background: #F7F5FF; overflow: hidden"><div style="height: 100%; width: {{cmp.custoW}}; background: #FFE04B"></div></div>
+            <span class="num" style="width: 64px; text-align: right; font-size: 14px; font-weight: 800">{{k.custoKm}}</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <span style="width: 40px; font-size: 12.5px">Ref.</span>
+            <div style="flex: 1; height: 22px; border: 2px solid #15131F; border-radius: 8px; background: #F7F5FF; overflow: hidden"><div style="height: 100%; width: {{cmp.custoRefW}}; background: #C9BFFF"></div></div>
+            <span class="num" style="width: 64px; text-align: right; font-size: 14px; font-weight: 800">{{k.custoKmRef}}</span>
+          </div>
+        </div>
+        <div style="font-size: 12.5px; color: #3B3650; line-height: 1.45">{{ref.misto}} km/l em uso misto · manutenção {{ref.manutAnual}}/ano · gasolina a {{ref.preco}}</div>
+        <button class="pp" onClick="{{openModels}}" style="height: 46px; border-radius: 999px; background: #FFFFFF; border: 2px solid #15131F; box-shadow: 3px 3px 0 #15131F; font-weight: 700; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px">
+          <svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"></ellipse><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"></path><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"></path></svg>
+          Ver base de modelos
+        </button>
+      </div>
+
+      <sc-if value="{{hasCats}}" hint-placeholder-val="{{ true }}">
+      <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 24px; box-shadow: 5px 5px 0 #15131F; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+        <h2 class="dsp" style="margin: 0; font-size: 20px; font-weight: 800">Manutenção por tipo</h2>
+        <sc-for list="{{cats}}" as="c" hint-placeholder-count="2">
+          <div style="display: flex; flex-direction: column; gap: 5px">
+            <div style="display: flex; justify-content: space-between; font-size: 14px">
+              <span style="font-weight: 700">{{c.name}}</span>
+              <span class="num">{{c.total}}</span>
+            </div>
+            <div style="height: 16px; border: 2px solid #15131F; border-radius: 999px; background: #F7F5FF; overflow: hidden"><div style="height: 100%; width: {{c.w}}; background: {{c.color}}"></div></div>
+          </div>
+        </sc-for>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{hasLastFuel}}" hint-placeholder-val="{{ true }}">
+      <div style="background: #FFFFFF; border: 2px dashed #15131F; border-radius: 20px; padding: 14px; display: flex; align-items: center; gap: 12px">
+        <span style="width: 44px; height: 44px; border-radius: 14px; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+          <svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V5.5A1.5 1.5 0 0 1 5.5 4h7A1.5 1.5 0 0 1 14 5.5V20"></path><path d="M3 20h12"></path><path d="M7 8h4"></path><path d="M14 10h1.5a1.5 1.5 0 0 1 1.5 1.5v4a1.5 1.5 0 0 0 3 0V8.5L17.5 6"></path></svg>
+        </span>
+        <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 12.5px; color: #4A4560">Último abastecimento · {{lastFuel.data}}</span>
+          <span class="num" style="font-size: 14.5px; font-weight: 700">{{lastFuel.litros}} · {{lastFuel.preco}}</span>
+        </div>
+        <span class="dsp num" style="font-size: 18px; font-weight: 800; flex-shrink: 0">{{lastFuel.valor}}</span>
+      </div>
+      </sc-if>
+
+    </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{tabLogs}}" hint-placeholder-val="{{ false }}">
+    <div class="noscroll" style="position: absolute; inset: 0; overflow-y: auto">
+    <div style="display: flex; flex-direction: column; gap: 16px; padding: 4px 16px 28px">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 8px">
+        <h1 class="dsp" style="margin: 0; font-size: 32px; font-weight: 800; line-height: 1">Registros</h1>
+        <span class="stk" style="background: #FFE04B; border: 2px solid #15131F; border-radius: 10px; padding: 4px 10px; font-size: 12.5px; font-weight: 800">{{logCount}}</span>
+      </div>
+      <div style="display: flex; gap: 8px">
+        <sc-for list="{{logFilters}}" as="fl" hint-placeholder-count="3">
+          <button class="pp" onClick="{{fl.pick}}" style="flex: 1; height: 44px; padding: 0 8px; border-radius: 999px; border: 2px solid {{fl.bd}}; background: {{fl.bg}}; color: {{fl.fg}}; font-weight: 700; font-size: 13.5px; white-space: nowrap; box-shadow: 2px 2px 0 #15131F">{{fl.label}}</button>
+        </sc-for>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <button class="pp" onClick="{{addFuel}}" style="height: 52px; border-radius: 16px; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; box-shadow: 4px 4px 0 #15131F; font-weight: 700; font-size: 14.5px; display: flex; align-items: center; justify-content: center; gap: 6px">
+          <svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+          Abastecimento
+        </button>
+        <button class="pp" onClick="{{addMaint}}" style="height: 52px; border-radius: 16px; background: #FF6B4A; color: #15131F; border: 2px solid #15131F; box-shadow: 4px 4px 0 #15131F; font-weight: 700; font-size: 14.5px; display: flex; align-items: center; justify-content: center; gap: 6px">
+          <svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+          Manutenção
+        </button>
+      </div>
+
+      <sc-if value="{{noGroups}}" hint-placeholder-val="{{ false }}">
+        <div style="background: #FFFFFF; border: 2px dashed #15131F; border-radius: 20px; padding: 24px 18px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+          <span class="dsp" style="font-size: 20px; font-weight: 800">Nada por aqui ainda</span>
+          <span style="font-size: 14px; color: #3B3650; line-height: 1.45">Registre abastecimentos e manutenções para ver gastos, consumo e custo por km reais.</span>
+        </div>
+      </sc-if>
+
+      <sc-for list="{{groups}}" as="g" hint-placeholder-count="2">
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px">
+            <span class="dsp" style="font-size: 19px; font-weight: 800">{{g.label}}</span>
+            <span class="num" style="font-size: 13px; color: #4A4560">{{g.total}} · {{g.count}}</span>
+          </div>
+          <sc-for list="{{g.items}}" as="it" hint-placeholder-count="3">
+            <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 18px; box-shadow: 3px 3px 0 #15131F; padding: 12px; display: flex; align-items: center; gap: 12px">
+              <span style="width: 44px; height: 44px; border-radius: 14px; background: {{it.color}}; border: 2px solid #15131F; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #15131F">
+                <sc-if value="{{it.isFuel}}" hint-placeholder-val="{{ true }}">
+                  <svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V5.5A1.5 1.5 0 0 1 5.5 4h7A1.5 1.5 0 0 1 14 5.5V20"></path><path d="M3 20h12"></path><path d="M7 8h4"></path><path d="M14 10h1.5a1.5 1.5 0 0 1 1.5 1.5v4a1.5 1.5 0 0 0 3 0V8.5L17.5 6"></path></svg>
+                </sc-if>
+                <sc-if value="{{it.isMaint}}" hint-placeholder-val="{{ false }}">
+                  <svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5a4.5 4.5 0 0 0-5.6 5.6L3.5 16.5a2.1 2.1 0 0 0 3 3l5.4-5.4a4.5 4.5 0 0 0 5.6-5.6l-2.8 2.8-2.4-.6-.6-2.4z"></path></svg>
+                </sc-if>
+              </span>
+              <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+                <span style="font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{it.title}}</span>
+                <span class="num" style="font-size: 12.5px; color: #4A4560; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{it.sub}} · {{it.km}}</span>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0">
+                <span class="num" style="font-size: 15px; font-weight: 800">{{it.valor}}</span>
+                <span style="font-size: 12.5px; color: #4A4560">{{it.data}}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{tabChat}}" hint-placeholder-val="{{ false }}">
+    <div style="position: absolute; inset: 0; display: flex; flex-direction: column">
+      <div style="padding: 2px 16px 12px; display: flex; align-items: center; gap: 12px; flex-shrink: 0">
+        <span style="width: 48px; height: 48px; border-radius: 50%; background: #3FD8A0; border: 2px solid #15131F; box-shadow: 3px 3px 0 #15131F; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+          <svg class="ic" width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-4 4v-4H4z"></path><path d="M9 10.5h.01"></path><path d="M15 10.5h.01"></path></svg>
+        </span>
+        <div style="min-width: 0; display: flex; flex-direction: column; gap: 1px">
+          <h1 class="dsp" style="margin: 0; font-size: 22px; font-weight: 800">Assistente</h1>
+          <span style="font-size: 12.5px; color: #3B3650; line-height: 1.35">Responde com os registros do {{car.apelido}} + a base do {{ref.modelo}}</span>
+        </div>
+      </div>
+      <div class="noscroll" style="flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column-reverse; gap: 10px; padding: 12px 16px 14px; border-top: 2px solid #15131F; background: #F6F3FF">
+        <sc-if value="{{chat.typing}}" hint-placeholder-val="{{ false }}">
+          <div style="display: flex; justify-content: flex-start">
+            <div aria-label="Digitando" style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 20px 20px 20px 6px; box-shadow: 3px 3px 0 #15131F; padding: 14px 16px; display: flex; gap: 5px">
+              <span class="dt"></span><span class="dt"></span><span class="dt"></span>
+            </div>
+          </div>
+        </sc-if>
+        <sc-for list="{{chat.msgs}}" as="m" hint-placeholder-count="3">
+          <sc-if value="{{m.isBot}}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; justify-content: flex-start">
+              <div style="max-width: 86%; background: #FFFFFF; border: 2px solid #15131F; border-radius: 20px 20px 20px 6px; box-shadow: 3px 3px 0 #15131F; padding: 11px 14px; font-size: 14.5px; line-height: 1.45; white-space: pre-line">{{m.text}}</div>
+            </div>
+          </sc-if>
+          <sc-if value="{{m.isMe}}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; justify-content: flex-end">
+              <div style="max-width: 80%; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; border-radius: 20px 20px 6px 20px; box-shadow: 3px 3px 0 #15131F; padding: 11px 14px; font-size: 14.5px; line-height: 1.45; white-space: pre-line">{{m.text}}</div>
+            </div>
+          </sc-if>
+        </sc-for>
+      </div>
+      <div class="noscroll" style="display: flex; gap: 8px; overflow-x: auto; padding: 10px 16px 6px; flex-shrink: 0; border-top: 2px solid #15131F; background: #FFFFFF">
+        <sc-for list="{{chat.suggestions}}" as="q" hint-placeholder-count="4">
+          <button class="pp" onClick="{{q.ask}}" style="flex-shrink: 0; height: 44px; padding: 0 14px; border-radius: 999px; border: 2px solid #15131F; background: #FFE04B; font-weight: 700; font-size: 13.5px; white-space: nowrap; box-shadow: 2px 2px 0 #15131F">{{q.label}}</button>
+        </sc-for>
+      </div>
+      <div style="display: flex; gap: 8px; padding: 8px 16px 12px; background: #FFFFFF; flex-shrink: 0; position: relative">
+        <label for="pop-chat-in" class="sr">Pergunte ao assistente</label>
+        <input id="pop-chat-in" class="inp" type="text" autocomplete="off" placeholder="Pergunte sobre o seu carro…" value="{{chat.text}}" onChange="{{chat.setText}}" onKeyDown="{{chat.onKey}}">
+        <button class="pp" onClick="{{chat.send}}" aria-label="Enviar pergunta" style="width: 54px; height: 50px; flex-shrink: 0; border-radius: 14px; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; box-shadow: 3px 3px 0 #15131F; display: flex; align-items: center; justify-content: center">
+          <svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 3 10 14"></path><path d="M21 3l-7 18-4-7-7-4z"></path></svg>
+        </button>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{tabGarage}}" hint-placeholder-val="{{ false }}">
+    <div class="noscroll" style="position: absolute; inset: 0; overflow-y: auto">
+    <div style="display: flex; flex-direction: column; gap: 16px; padding: 4px 16px 28px">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 8px">
+        <h1 class="dsp" style="margin: 0; font-size: 32px; font-weight: 800; line-height: 1">Garagem</h1>
+        <span class="stk" style="background: #3FD8A0; border: 2px solid #15131F; border-radius: 10px; padding: 4px 10px; font-size: 12.5px; font-weight: 800">{{carCount}}</span>
+      </div>
+      <sc-for list="{{cars}}" as="c" hint-placeholder-count="2">
+        <button class="pp" onClick="{{c.pick}}" style="width: 100%; text-align: left; background: {{c.bg}}; border: 2px solid {{c.bd}}; border-radius: 22px; box-shadow: 4px 4px 0 #15131F; padding: 14px; display: flex; flex-direction: column; gap: 12px">
+          <span style="display: flex; align-items: center; gap: 12px; width: 100%">
+            <span class="dsp" style="width: 48px; height: 48px; border-radius: 14px; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; flex-shrink: 0">{{c.initials}}</span>
+            <span style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+              <span class="dsp" style="font-size: 18px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{c.apelido}}</span>
+              <span style="font-size: 12.5px; color: #3B3650">{{c.modelo}} · {{c.ano}}</span>
+            </span>
+            <sc-if value="{{c.on}}" hint-placeholder-val="{{ false }}">
+              <span style="background: #15131F; color: #FFFFFF; border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 800; flex-shrink: 0">Ativo</span>
+            </sc-if>
+          </span>
+          <span style="display: flex; align-items: center; gap: 6px; width: 100%; flex-wrap: wrap">
+            <span style="display: inline-flex; flex-direction: column; border: 2px solid #15131F; border-radius: 8px; overflow: hidden; background: #FFFFFF">
+              <span style="display: block; height: 6px; background: #6A4BFF"></span>
+              <span style="padding: 2px 8px; font-size: 13px; font-weight: 800; letter-spacing: .12em">{{c.placa}}</span>
+            </span>
+            <span class="num" style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 999px; padding: 3px 10px; font-size: 12.5px; font-weight: 700">{{c.odo}}</span>
+            <span class="num" style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 999px; padding: 3px 10px; font-size: 12.5px; font-weight: 700">{{c.custoKm}}</span>
+            <span class="num" style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 999px; padding: 3px 10px; font-size: 12.5px; font-weight: 700">{{c.registros}}</span>
+          </span>
+        </button>
+      </sc-for>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <button class="pp" onClick="{{openAddCar}}" style="height: 56px; border-radius: 18px; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; box-shadow: 4px 4px 0 #15131F; font-weight: 700; font-size: 14.5px; display: flex; align-items: center; justify-content: center; gap: 6px">
+          <svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+          Novo veículo
+        </button>
+        <button class="pp" onClick="{{openModels}}" style="height: 56px; border-radius: 18px; background: #FFFFFF; border: 2px solid #15131F; box-shadow: 4px 4px 0 #15131F; font-weight: 700; font-size: 14.5px; display: flex; align-items: center; justify-content: center; gap: 6px">
+          <svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"></ellipse><path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"></path><path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"></path></svg>
+          Base de modelos
+        </button>
+      </div>
+      <div style="background: #FFE04B; border: 2px solid #15131F; border-radius: 22px; box-shadow: 4px 4px 0 #15131F; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <span style="width: 40px; height: 40px; border-radius: 12px; background: #FFFFFF; border: 2px solid #15131F; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+            <svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 1 1-2.4-5.7"></path><path d="M20 4v5h-5"></path></svg>
+          </span>
+          <span class="dsp" style="font-size: 18px; font-weight: 800">Perfil ao abrir o app</span>
+        </div>
+        <span style="font-size: 14px; line-height: 1.45">{{sessionHint}}</span>
+        <button class="pp" onClick="{{newSession}}" style="height: 48px; border-radius: 14px; background: #15131F; color: #FFFFFF; border: 2px solid #15131F; box-shadow: 3px 3px 0 #6A4BFF; font-weight: 700; font-size: 15px">Simular nova sessão</button>
+      </div>
+    </div>
+    </div>
+    </sc-if>
+
+  </div>
+
+  <nav aria-label="Navegação principal" style="flex-shrink: 0; display: flex; gap: 4px; background: #FFFFFF; border-top: 2px solid #15131F; padding: 6px 8px 10px">
+    <button class="pb" onClick="{{nav.home.go}}" style="flex: 1; height: 62px; background: transparent; border: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: {{nav.home.fg}}">
+      <span style="width: 56px; height: 32px; border-radius: 999px; background: {{nav.home.bg}}; display: flex; align-items: center; justify-content: center">
+        <svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9.5V21h14V9.5"></path><path d="M10 21v-6h4v6"></path></svg>
+      </span>
+      <span style="font-size: 12px; font-weight: 700">Início</span>
+    </button>
+    <button class="pb" onClick="{{nav.logs.go}}" style="flex: 1; height: 62px; background: transparent; border: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: {{nav.logs.fg}}">
+      <span style="width: 56px; height: 32px; border-radius: 999px; background: {{nav.logs.bg}}; display: flex; align-items: center; justify-content: center">
+        <svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"></path><path d="M9 8h6"></path><path d="M9 12h6"></path></svg>
+      </span>
+      <span style="font-size: 12px; font-weight: 700">Registros</span>
+    </button>
+    <button class="pb" onClick="{{nav.chat.go}}" style="flex: 1; height: 62px; background: transparent; border: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: {{nav.chat.fg}}">
+      <span style="width: 56px; height: 32px; border-radius: 999px; background: {{nav.chat.bg}}; display: flex; align-items: center; justify-content: center">
+        <svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-4 4v-4H4z"></path><path d="M9 10.5h.01"></path><path d="M15 10.5h.01"></path></svg>
+      </span>
+      <span style="font-size: 12px; font-weight: 700">Assistente</span>
+    </button>
+    <button class="pb" onClick="{{nav.garage.go}}" style="flex: 1; height: 62px; background: transparent; border: 0; padding: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: {{nav.garage.fg}}">
+      <span style="width: 56px; height: 32px; border-radius: 999px; background: {{nav.garage.bg}}; display: flex; align-items: center; justify-content: center">
+        <svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17H3v-4.5l2.2-5.2A2 2 0 0 1 7 6h10a2 2 0 0 1 1.8 1.3L21 12.5V17h-2"></path><path d="M3 12.5h18"></path><path d="M9 17h6"></path><circle cx="7" cy="17" r="2"></circle><circle cx="17" cy="17" r="2"></circle></svg>
+      </span>
+      <span style="font-size: 12px; font-weight: 700">Garagem</span>
+    </button>
+  </nav>
+
+</div>
+</sc-if>
+
+<sc-if value="{{toast.show}}" hint-placeholder-val="{{ false }}">
+  <div style="position: absolute; left: 16px; right: 16px; bottom: 100px; z-index: 80; display: flex; justify-content: center; pointer-events: none">
+    <div class="toast" role="status" style="background: #15131F; color: #FFFFFF; border: 2px solid #15131F; border-radius: 16px; box-shadow: 4px 4px 0 #6A4BFF; padding: 12px 16px; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 10px; max-width: 100%">
+      <span style="width: 24px; height: 24px; border-radius: 50%; background: #3FD8A0; color: #15131F; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+        <svg class="ic" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width: 3.2"><path d="m5 12 5 5 9-10"></path></svg>
+      </span>
+      <span>{{toast.text}}</span>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{anySheet}}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; z-index: 50">
+  <button class="fade" aria-label="Fechar" onClick="{{closeSheet}}" style="position: absolute; inset: 0; width: 100%; height: 100%; background: rgba(21, 19, 31, 0.5); border: 0; padding: 0"></button>
+  <div class="sheet noscroll" style="position: absolute; left: 0; right: 0; bottom: 0; max-height: 88%; overflow-y: auto; background: #FFFFFF; border-top: 2px solid #15131F; border-radius: 28px 28px 0 0; padding: 10px 18px 28px">
+    <div style="display: flex; justify-content: center; padding-bottom: 10px">
+      <span style="width: 44px; height: 5px; border-radius: 99px; background: #15131F; display: block"></span>
+    </div>
+
+    <sc-if value="{{sheetAddLog}}" hint-placeholder-val="{{ false }}">
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+        <h2 class="dsp" style="margin: 0; font-size: 26px; font-weight: 800">{{lf.title}}</h2>
+        <button class="pp" onClick="{{closeSheet}}" aria-label="Fechar" style="width: 44px; height: 44px; border-radius: 14px; background: #FFFFFF; border: 2px solid #15131F; box-shadow: 2px 2px 0 #15131F; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+          <svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6 6 18"></path></svg>
+        </button>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+        <sc-for list="{{lf.tipos}}" as="t" hint-placeholder-count="2">
+          <button class="pp" onClick="{{t.pick}}" style="height: 48px; border-radius: 14px; border: 2px solid {{t.bd}}; background: {{t.bg}}; color: {{t.fg}}; font-weight: 700; font-size: 14.5px; box-shadow: 2px 2px 0 #15131F">{{t.label}}</button>
+        </sc-for>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="pop-lf-valor" style="font-size: 13px; font-weight: 700">Valor pago (R$)</label>
+          <input id="pop-lf-valor" class="inp num" type="text" inputmode="decimal" placeholder="0,00" value="{{lf.valor}}" onChange="{{lf.setValor}}">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="pop-lf-km" style="font-size: 13px; font-weight: 700">Odômetro (km)</label>
+          <input id="pop-lf-km" class="inp num" type="text" inputmode="numeric" placeholder="00.000" value="{{lf.km}}" onChange="{{lf.setKm}}">
+        </div>
+      </div>
+      <div style="font-size: 12.5px; color: #4A4560; margin-top: -6px">{{lf.kmHint}}</div>
+      <sc-if value="{{lf.isFuel}}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="pop-lf-litros" style="font-size: 13px; font-weight: 700">Litros abastecidos</label>
+          <input id="pop-lf-litros" class="inp num" type="text" inputmode="decimal" placeholder="0,0" value="{{lf.litros}}" onChange="{{lf.setLitros}}">
+        </div>
+      </sc-if>
+      <sc-if value="{{lf.hasPreco}}" hint-placeholder-val="{{ false }}">
+        <div style="align-self: flex-start; background: #3FD8A0; border: 2px solid #15131F; border-radius: 12px; padding: 6px 12px; font-size: 13.5px; font-weight: 700">Preço por litro: <span class="num">{{lf.preco}}</span></div>
+      </sc-if>
+      <sc-if value="{{lf.isMaint}}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <div id="pop-lf-cat-lbl" style="font-size: 13px; font-weight: 700">Tipo de serviço</div>
+          <div role="group" aria-labelledby="pop-lf-cat-lbl" style="display: flex; flex-wrap: wrap; gap: 8px">
+            <sc-for list="{{lf.cats}}" as="ct" hint-placeholder-count="6">
+              <button class="pp" onClick="{{ct.pick}}" style="height: 44px; padding: 0 14px; border-radius: 999px; border: 2px solid {{ct.bd}}; background: {{ct.bg}}; color: {{ct.fg}}; font-weight: 700; font-size: 13.5px; box-shadow: 2px 2px 0 #15131F">{{ct.label}}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="pop-lf-desc" style="font-size: 13px; font-weight: 700">Descrição (opcional)</label>
+          <input id="pop-lf-desc" class="inp" type="text" placeholder="Ex.: Troca de pastilhas" value="{{lf.desc}}" onChange="{{lf.setDesc}}">
+        </div>
+      </sc-if>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <label for="pop-lf-data" style="font-size: 13px; font-weight: 700">Data</label>
+        <input id="pop-lf-data" class="inp" type="date" max="{{lf.hoje}}" value="{{lf.data}}" onChange="{{lf.setData}}">
+      </div>
+      <sc-if value="{{lf.hasErr}}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="background: #FFE1D7; border: 2px solid #15131F; border-radius: 12px; padding: 10px 12px; color: #C23B1A; font-size: 13.5px; font-weight: 700">{{lf.err}}</div>
+      </sc-if>
+      <button class="pp" onClick="{{lf.save}}" style="height: 56px; border-radius: 16px; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; box-shadow: 4px 4px 0 #15131F; font-weight: 800; font-size: 17px">Salvar registro</button>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{sheetAddCar}}" hint-placeholder-val="{{ false }}">
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+        <h2 class="dsp" style="margin: 0; font-size: 26px; font-weight: 800">Novo veículo</h2>
+        <button class="pp" onClick="{{closeSheet}}" aria-label="Fechar" style="width: 44px; height: 44px; border-radius: 14px; background: #FFFFFF; border: 2px solid #15131F; box-shadow: 2px 2px 0 #15131F; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+          <svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6 6 18"></path></svg>
+        </button>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <div id="pop-cf-model-lbl" style="font-size: 13px; font-weight: 700">Modelo (base de referência)</div>
+        <div role="group" aria-labelledby="pop-cf-model-lbl" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+          <sc-for list="{{cf.models}}" as="mo" hint-placeholder-count="6">
+            <button class="pp" onClick="{{mo.pick}}" style="min-height: 56px; text-align: left; padding: 8px 12px; border-radius: 14px; border: 2px solid {{mo.bd}}; background: {{mo.bg}}; color: {{mo.fg}}; display: flex; flex-direction: column; justify-content: center; gap: 2px; box-shadow: 2px 2px 0 #15131F">
+              <span style="font-weight: 700; font-size: 14px">{{mo.label}}</span>
+              <span style="font-size: 12px">{{mo.sub}}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="background: #3FD8A0; border: 2px solid #15131F; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px">
+        <span style="font-size: 14px; font-weight: 700">Referência do {{cf.sel.nome}}</span>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+          <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 12px; padding: 8px 10px; display: flex; flex-direction: column; gap: 1px">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #4A4560">Consumo misto</span>
+            <span class="num" style="font-size: 14.5px; font-weight: 800">{{cf.sel.consumo}}</span>
+          </div>
+          <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 12px; padding: 8px 10px; display: flex; flex-direction: column; gap: 1px">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #4A4560">Custo por km</span>
+            <span class="num" style="font-size: 14.5px; font-weight: 800">{{cf.sel.custoKm}}</span>
+          </div>
+          <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 12px; padding: 8px 10px; display: flex; flex-direction: column; gap: 1px">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #4A4560">Manutenção</span>
+            <span class="num" style="font-size: 14.5px; font-weight: 800">{{cf.sel.manut}}</span>
+          </div>
+          <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 12px; padding: 8px 10px; display: flex; flex-direction: column; gap: 1px">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: #4A4560">Revisão</span>
+            <span class="num" style="font-size: 14.5px; font-weight: 800">{{cf.sel.revisao}}</span>
+          </div>
+        </div>
+        <span style="font-size: 12px; font-weight: 700">Referência estimada · protótipo</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <label for="pop-cf-apelido" style="font-size: 13px; font-weight: 700">Apelido</label>
+        <input id="pop-cf-apelido" class="inp" type="text" placeholder="Ex.: Carro do trabalho" value="{{cf.apelido}}" onChange="{{cf.setApelido}}">
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="pop-cf-ano" style="font-size: 13px; font-weight: 700">Ano</label>
+          <input id="pop-cf-ano" class="inp num" type="text" inputmode="numeric" maxlength="4" value="{{cf.ano}}" onChange="{{cf.setAno}}">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="pop-cf-placa" style="font-size: 13px; font-weight: 700">Placa</label>
+          <input id="pop-cf-placa" class="inp" type="text" maxlength="7" placeholder="ABC1D23" value="{{cf.placa}}" onChange="{{cf.setPlaca}}" style="text-transform: uppercase; letter-spacing: .08em">
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <label for="pop-cf-km" style="font-size: 13px; font-weight: 700">Quilometragem atual (km)</label>
+        <input id="pop-cf-km" class="inp num" type="text" inputmode="numeric" placeholder="00.000" value="{{cf.km}}" onChange="{{cf.setKm}}">
+      </div>
+      <sc-if value="{{cf.enablesSelector}}" hint-placeholder-val="{{ true }}">
+        <div style="background: #FFE04B; border: 2px solid #15131F; border-radius: 14px; padding: 12px; display: flex; gap: 10px; align-items: flex-start">
+          <svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" style="margin-top: 1px"><path d="M20 12a8 8 0 1 1-2.4-5.7"></path><path d="M20 4v5h-5"></path></svg>
+          <span style="font-size: 13.5px; line-height: 1.45">Com o 2º veículo, o app passa a perguntar qual carro usar sempre que for aberto.</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{cf.hasErr}}" hint-placeholder-val="{{ false }}">
+        <div role="alert" style="background: #FFE1D7; border: 2px solid #15131F; border-radius: 12px; padding: 10px 12px; color: #C23B1A; font-size: 13.5px; font-weight: 700">{{cf.err}}</div>
+      </sc-if>
+      <button class="pp" onClick="{{cf.save}}" style="height: 56px; border-radius: 16px; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; box-shadow: 4px 4px 0 #15131F; font-weight: 800; font-size: 17px">Adicionar à garagem</button>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{sheetSwitch}}" hint-placeholder-val="{{ false }}">
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 2px">
+          <h2 class="dsp" style="margin: 0; font-size: 26px; font-weight: 800">Trocar de veículo</h2>
+          <span style="font-size: 13px; color: #3B3650">As métricas passam a refletir o perfil escolhido.</span>
+        </div>
+        <button class="pp" onClick="{{closeSheet}}" aria-label="Fechar" style="width: 44px; height: 44px; border-radius: 14px; background: #FFFFFF; border: 2px solid #15131F; box-shadow: 2px 2px 0 #15131F; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+          <svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6 6 18"></path></svg>
+        </button>
+      </div>
+      <sc-for list="{{switchCars}}" as="c" hint-placeholder-count="2">
+        <button class="pp" onClick="{{c.pick}}" style="width: 100%; text-align: left; background: {{c.bg}}; border: 2px solid {{c.bd}}; border-radius: 20px; box-shadow: 4px 4px 0 #15131F; padding: 12px 14px; display: flex; align-items: center; gap: 12px">
+          <span class="dsp" style="width: 46px; height: 46px; border-radius: 14px; background: #6A4BFF; color: #FFFFFF; border: 2px solid #15131F; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 17px; flex-shrink: 0">{{c.initials}}</span>
+          <span style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0">
+            <span class="dsp" style="font-size: 17px; font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{c.apelido}}</span>
+            <span class="num" style="font-size: 12.5px; color: #3B3650">{{c.modelo}} · {{c.odo}}</span>
+          </span>
+          <sc-if value="{{c.on}}" hint-placeholder-val="{{ false }}">
+            <span style="background: #15131F; color: #FFFFFF; border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 800; flex-shrink: 0">Ativo</span>
+          </sc-if>
+        </button>
+      </sc-for>
+      <button class="pp" onClick="{{openAddCar}}" style="height: 52px; border: 2px dashed #15131F; border-radius: 16px; background: transparent; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center; gap: 8px">
+        <svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14"></path><path d="M5 12h14"></path></svg>
+        Adicionar veículo
+      </button>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{sheetModels}}" hint-placeholder-val="{{ false }}">
+    <div style="display: flex; flex-direction: column; gap: 12px">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+        <h2 class="dsp" style="margin: 0; font-size: 26px; font-weight: 800">Base de modelos</h2>
+        <button class="pp" onClick="{{closeSheet}}" aria-label="Fechar" style="width: 44px; height: 44px; border-radius: 14px; background: #FFFFFF; border: 2px solid #15131F; box-shadow: 2px 2px 0 #15131F; display: flex; align-items: center; justify-content: center; flex-shrink: 0">
+          <svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12"></path><path d="M18 6 6 18"></path></svg>
+        </button>
+      </div>
+      <span style="align-self: flex-start; background: #FFE04B; border: 2px solid #15131F; border-radius: 10px; padding: 4px 10px; font-size: 12.5px; font-weight: 700">Referência estimada · protótipo · gasolina a {{ref.preco}}</span>
+      <sc-for list="{{models}}" as="mo" hint-placeholder-count="4">
+        <div style="background: #FFFFFF; border: 2px solid #15131F; border-radius: 18px; box-shadow: 3px 3px 0 #15131F; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; align-items: flex-start; gap: 8px">
+            <div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+              <span class="dsp" style="font-size: 17px; font-weight: 800">{{mo.nome}}</span>
+              <span class="num" style="font-size: 12.5px; color: #4A4560; line-height: 1.4">{{mo.motor}} · {{mo.cidade}} cidade · {{mo.estrada}} estrada · revisão a cada {{mo.revisao}}</span>
+            </div>
+            <sc-if value="{{mo.mine}}" hint-placeholder-val="{{ false }}">
+              <span style="background: #3FD8A0; border: 2px solid #15131F; border-radius: 999px; padding: 3px 9px; font-size: 11.5px; font-weight: 800; flex-shrink: 0">Na garagem</span>
+            </sc-if>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+            <div style="background: #EEEAFE; border-radius: 10px; padding: 6px 8px; display: flex; flex-direction: column; gap: 1px">
+              <span class="num" style="font-size: 13.5px; font-weight: 800">{{mo.misto}} km/l</span>
+              <span style="font-size: 11px; color: #4A4560">consumo misto</span>
+            </div>
+            <div style="background: #EEEAFE; border-radius: 10px; padding: 6px 8px; display: flex; flex-direction: column; gap: 1px">
+              <span class="num" style="font-size: 13.5px; font-weight: 800">{{mo.custoKm}}</span>
+              <span style="font-size: 11px; color: #4A4560">por km</span>
+            </div>
+            <div style="background: #EEEAFE; border-radius: 10px; padding: 6px 8px; display: flex; flex-direction: column; gap: 1px">
+              <span class="num" style="font-size: 13.5px; font-weight: 800">{{mo.manutAnual}}</span>
+              <span style="font-size: 11px; color: #4A4560">manutenção/ano</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    </sc-if>
+
+  </div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"veiculosIniciais":{"editor":"enum","options":["2 veículos","1 veículo"],"default":"2 veículos"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  // ===== Tema visual: o ÚNICO bloco que muda entre os estilos =====
+  theme() {
+    return {
+      chartH: 136,
+      fuel: '#6A4BFF', maint: '#FF6B4A',
+      good: '#0F7A4A', goodSoft: '#D6F7E8',
+      bad: '#C23B1A', badSoft: '#FFE1D7',
+      info: '#4B2FE0', infoSoft: '#E4DDFF',
+      chipOnBg: '#15131F', chipOnFg: '#FFFFFF', chipOnBd: '#15131F',
+      chipOffBg: '#FFFFFF', chipOffFg: '#15131F', chipOffBd: '#15131F',
+      navOnFg: '#15131F', navOnBg: '#FFE04B', navOffFg: '#4A4560', navOffBg: 'transparent',
+      rowOnBd: '#15131F', rowOnBg: '#FFE04B', rowOffBd: '#15131F', rowOffBg: '#FFFFFF',
+      cats: ['#6A4BFF', '#FF6B4A', '#3FD8A0', '#FFB020', '#FF5FA2', '#A39CC0'],
+      dim: 0.38
+    };
+  }
+
+  // ===== Base de referência (estimativas do protótipo, gasolina) =====
+  hoje() { return '2026-11-02'; }
+  precoRef() { return 6.29; }
+  baseModels() {
+    return [
+      { id: 'mobi', marca: 'Fiat', modelo: 'Mobi', motor: '1.0 Flex', cidade: 13.5, estrada: 15.0, revisaoKm: 10000, custoRevisao: 620, manutAnual: 1700, pneus: 1400 },
+      { id: 'kwid', marca: 'Renault', modelo: 'Kwid', motor: '1.0 Flex', cidade: 14.9, estrada: 15.6, revisaoKm: 10000, custoRevisao: 580, manutAnual: 1650, pneus: 1300 },
+      { id: 'onix', marca: 'Chevrolet', modelo: 'Onix', motor: '1.0 Flex', cidade: 13.2, estrada: 16.3, revisaoKm: 10000, custoRevisao: 760, manutAnual: 2100, pneus: 1800 },
+      { id: 'hb20', marca: 'Hyundai', modelo: 'HB20', motor: '1.0 Flex', cidade: 13.1, estrada: 15.0, revisaoKm: 10000, custoRevisao: 790, manutAnual: 2200, pneus: 1800 },
+      { id: 'argo', marca: 'Fiat', modelo: 'Argo', motor: '1.0 Flex', cidade: 13.4, estrada: 15.6, revisaoKm: 10000, custoRevisao: 700, manutAnual: 2000, pneus: 1700 },
+      { id: 'polo', marca: 'Volkswagen', modelo: 'Polo', motor: '1.0 TSI', cidade: 12.4, estrada: 14.6, revisaoKm: 10000, custoRevisao: 920, manutAnual: 2500, pneus: 2100 },
+      { id: 'strada', marca: 'Fiat', modelo: 'Strada', motor: '1.3 Flex', cidade: 11.0, estrada: 12.8, revisaoKm: 10000, custoRevisao: 850, manutAnual: 2400, pneus: 2000 },
+      { id: 'tcross', marca: 'Volkswagen', modelo: 'T-Cross', motor: '1.0 TSI', cidade: 11.4, estrada: 13.5, revisaoKm: 10000, custoRevisao: 980, manutAnual: 2800, pneus: 2600 },
+      { id: 'corolla', marca: 'Toyota', modelo: 'Corolla', motor: '2.0 Flex', cidade: 11.5, estrada: 13.6, revisaoKm: 10000, custoRevisao: 1150, manutAnual: 3200, pneus: 2900 },
+      { id: 'compass', marca: 'Jeep', modelo: 'Compass', motor: '1.3 Turbo', cidade: 9.8, estrada: 11.7, revisaoKm: 12000, custoRevisao: 1350, manutAnual: 3700, pneus: 3400 }
+    ];
+  }
+  cats() { return ['Revisão', 'Óleo', 'Pneus', 'Freios', 'Elétrica', 'Outros']; }
+  seedCars() {
+    const fuel = (p, rows) => rows.map((r, i) => ({ id: p + 'f' + i, tipo: 'fuel', data: r[0], km: r[1], litros: r[2], preco: r[3], valor: Math.round(r[2] * r[3] * 100) / 100 }));
+    const maint = (p, rows) => rows.map((r, i) => ({ id: p + 'm' + i, tipo: 'maint', data: r[0], km: r[1], cat: r[2], desc: r[3], valor: r[4] }));
+    return [
+      {
+        id: 'v-onix', modelId: 'onix', apelido: 'Onix do dia a dia', ano: 2021, placa: 'RIO2A19', kmInicial: 42150, inicio: '2026-05-04',
+        logs: fuel('o', [
+          ['2026-05-06', 42180, 34.2, 6.09], ['2026-05-17', 42630, 36.1, 6.09], ['2026-05-29', 43070, 35.4, 6.15],
+          ['2026-06-10', 43530, 37.0, 6.15], ['2026-06-22', 43960, 34.8, 6.19], ['2026-07-03', 44420, 37.6, 6.19],
+          ['2026-07-15', 44890, 38.1, 6.25], ['2026-07-27', 45330, 35.5, 6.25], ['2026-08-08', 45790, 37.2, 6.22],
+          ['2026-08-21', 46240, 36.4, 6.22], ['2026-09-02', 46690, 36.9, 6.29], ['2026-09-15', 47120, 35.0, 6.29],
+          ['2026-09-27', 47580, 37.4, 6.35], ['2026-10-09', 48050, 38.6, 6.35], ['2026-10-21', 48510, 37.9, 6.32],
+          ['2026-11-01', 48960, 36.8, 6.32]
+        ]).concat(maint('o', [
+          ['2026-05-20', 42800, 'Óleo', 'Troca de óleo e filtro', 289.9],
+          ['2026-07-08', 44600, 'Pneus', 'Alinhamento e balanceamento', 160],
+          ['2026-09-18', 47200, 'Freios', 'Pastilhas de freio dianteiras', 420],
+          ['2026-10-12', 48100, 'Elétrica', 'Bateria nova', 549]
+        ]))
+      },
+      {
+        id: 'v-compass', modelId: 'compass', apelido: 'Compass da família', ano: 2023, placa: 'SPO7C42', kmInicial: 17300, inicio: '2026-05-10',
+        logs: fuel('c', [
+          ['2026-05-11', 17330, 46.0, 6.09], ['2026-05-26', 17760, 47.5, 6.15], ['2026-06-11', 18200, 48.2, 6.15],
+          ['2026-06-27', 18640, 47.0, 6.19], ['2026-07-12', 19090, 49.1, 6.25], ['2026-07-29', 19520, 46.8, 6.25],
+          ['2026-08-14', 19970, 48.9, 6.22], ['2026-08-31', 20400, 47.3, 6.29], ['2026-09-16', 20850, 49.0, 6.29],
+          ['2026-10-02', 21290, 48.1, 6.35], ['2026-10-18', 21740, 49.6, 6.32], ['2026-10-31', 22160, 46.2, 6.32]
+        ]).concat(maint('c', [
+          ['2026-06-18', 18450, 'Pneus', 'Pneu dianteiro (1 un.)', 890],
+          ['2026-08-05', 19800, 'Outros', 'Higienização do ar-condicionado', 180],
+          ['2026-10-07', 21400, 'Outros', 'Palhetas do limpador', 140]
+        ]))
+      }
+    ];
+  }
+
+  // ===== Estado (padrões + o que o usuário mudou) =====
+  S() {
+    const s = this.state || {};
+    const n = String(this.props.veiculosIniciais ?? '2 veículos').trim().charAt(0) === '1' ? 1 : 2;
+    if (!this._seed || this._seedN !== n) { this._seedN = n; this._seed = this.seedCars().slice(0, n); }
+    const cars = s.cars || this._seed;
+    return {
+      cars,
+      activeId: s.activeId || cars[0].id,
+      screen: s.screen || (cars.length > 1 ? 'selector' : 'app'),
+      tab: s.tab || 'home',
+      period: s.period || '30d',
+      chartMode: s.chartMode || 'gastos',
+      selMonth: s.selMonth ?? 5,
+      logFilter: s.logFilter || 'all',
+      sheet: s.sheet || null,
+      lf: s.lf || null,
+      cf: s.cf || null,
+      chats: s.chats || {},
+      chatText: s.chatText ?? '',
+      typing: !!s.typing,
+      toast: s.toast || ''
+    };
+  }
+  active(s) { return s.cars.find(c => c.id === s.activeId) || s.cars[0]; }
+
+  // ===== Formatação =====
+  num(v, dec) { return Number(v || 0).toLocaleString('pt-BR', { minimumFractionDigits: dec || 0, maximumFractionDigits: dec || 0 }); }
+  brl(v, dec) { return 'R$ ' + this.num(v, dec ?? 2); }
+  kmf(v) { return this.num(Math.round(v)) + ' km'; }
+  dt(s) { const p = s.split('-').map(Number); return Date.UTC(p[0], p[1] - 1, p[2]); }
+  days(a, b) { return Math.round((this.dt(b) - this.dt(a)) / 86400000); }
+  addDays(s, n) { return new Date(this.dt(s) + n * 86400000).toISOString().slice(0, 10); }
+  mesesC() { return ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']; }
+  mesesL() { return ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']; }
+  dataCurta(s) { const p = s.split('-').map(Number); return p[2] + ' ' + this.mesesC()[p[1] - 1]; }
+  pf(v) {
+    let t = String(v ?? '').trim().replace(/[^\d.,]/g, '');
+    if (t.includes(',')) t = t.replace(/\./g, '').replace(',', '.');
+    else if ((t.match(/\./g) || []).length > 1 || /\.\d{3}$/.test(t)) t = t.replace(/\./g, '');
+    const n = parseFloat(t);
+    return isNaN(n) ? 0 : n;
+  }
+  diff(real, ref, higherIsBetter) {
+    if (real == null || !ref) return { txt: '', good: true, sign: '' };
+    const d = (real / ref - 1) * 100;
+    const good = higherIsBetter ? d >= -3 : d <= 3;
+    const txt = Math.abs(d) < 1 ? 'na média' : this.num(Math.abs(d)) + '% ' + (d > 0 ? 'acima' : 'abaixo');
+    return { txt, good, sign: d > 0 ? '+' : '−' };
+  }
+
+  // ===== Cálculos =====
+  model(id) { const l = this.baseModels(); return l.find(m => m.id === id) || l[0]; }
+  nomeModelo(m) { return m.marca + ' ' + m.modelo + ' ' + m.motor; }
+  misto(m) { return m.cidade * 0.6 + m.estrada * 0.4; }
+  refCustoKm(m) { return this.precoRef() / this.misto(m) + m.manutAnual / 12000; }
+  odoAt(car, date) { let o = car.kmInicial; for (const l of car.logs) if (l.data <= date && l.km > o) o = l.km; return o; }
+  odoBefore(car, date) { let o = car.kmInicial; for (const l of car.logs) if (l.data < date && l.km > o) o = l.km; return o; }
+  metrics(car, period) {
+    const hoje = this.hoje();
+    const totalDias = Math.max(1, this.days(car.inicio, hoje));
+    const span = period === '30d' ? 30 : period === '90d' ? 90 : totalDias;
+    let start = this.addDays(hoje, -span);
+    if (start < car.inicio) start = car.inicio;
+    const dias = Math.max(1, this.days(start, hoje));
+    const logs = car.logs.filter(l => l.data >= start && l.data <= hoje);
+    const km = Math.max(0, this.odoAt(car, hoje) - this.odoBefore(car, start));
+    let fuel = 0, maint = 0, litros = 0;
+    for (const l of logs) { if (l.tipo === 'fuel') { fuel += l.valor; litros += l.litros; } else maint += l.valor; }
+    const m = this.model(car.modelId);
+    const total = fuel + maint;
+    // consumo pelo método do tanque cheio: km entre o 1º e o último abastecimento / litros após o 1º
+    const fills = logs.filter(l => l.tipo === 'fuel').sort((a, b) => a.km - b.km);
+    let consumo = null;
+    if (fills.length >= 2) {
+      const kmF = fills[fills.length - 1].km - fills[0].km;
+      const lt = fills.slice(1).reduce((a, l) => a + l.litros, 0);
+      if (kmF > 0 && lt > 0) consumo = kmF / lt;
+    }
+    return {
+      start, dias, totalDias, km, fuel, maint, total, litros, logs, model: m,
+      consumo,
+      ref: this.misto(m),
+      custoKm: km > 0 ? total / km : null,
+      refKm: this.refCustoKm(m),
+      custoDia: total / dias,
+      kmDia: km / dias,
+      precoMedio: litros > 0 ? fuel / litros : null
+    };
+  }
+  months(car) {
+    const p = this.hoje().split('-').map(Number);
+    const out = [];
+    for (let i = 6; i >= 1; i--) {
+      let mm = p[1] - i, yy = p[0];
+      while (mm <= 0) { mm += 12; yy--; }
+      const first = yy + '-' + String(mm).padStart(2, '0') + '-01';
+      const next = mm === 12 ? (yy + 1) + '-01-01' : yy + '-' + String(mm + 1).padStart(2, '0') + '-01';
+      let fuel = 0, maint = 0;
+      for (const l of car.logs) if (l.data >= first && l.data < next) { if (l.tipo === 'fuel') fuel += l.valor; else maint += l.valor; }
+      const km = Math.max(0, this.odoBefore(car, next) - this.odoBefore(car, first));
+      out.push({ mm, yy, fuel, maint, total: fuel + maint, km, custoKm: km ? (fuel + maint) / km : 0 });
+    }
+    return out;
+  }
+  revisao(car) {
+    const m = this.model(car.modelId);
+    const odo = this.odoAt(car, '9999-12-31');
+    const iv = m.revisaoKm;
+    const next = (Math.floor(odo / iv) + 1) * iv;
+    const falta = next - odo;
+    const kmDia = this.metrics(car, '90d').kmDia || 33;
+    const eta = Math.max(1, Math.round(falta / kmDia));
+    return { next, falta, iv, pct: Math.round((1 - falta / iv) * 100), eta, etaDate: this.dataCurta(this.addDays(this.hoje(), eta)), custo: m.custoRevisao, odo };
+  }
+  insights(car, th) {
+    const m = this.model(car.modelId), all = this.metrics(car, 'all'), rev = this.revisao(car), out = [];
+    if (!car.logs.length) {
+      out.push({ tone: 'info', title: 'Comece pelo primeiro abastecimento', text: 'Com dois registros eu já calculo consumo e custo por km reais. Até lá, uso a base do ' + m.modelo + '.' });
+    } else {
+      if (rev.falta <= 2000) out.push({ tone: 'warn', title: 'Revisão em ' + this.kmf(rev.falta), text: 'Previsão para ' + rev.etaDate + ' (~' + rev.eta + ' dias). Custo médio de referência: ' + this.brl(rev.custo, 0) + '.' });
+      else out.push({ tone: 'info', title: 'Próxima revisão aos ' + this.kmf(rev.next), text: 'Faltam ' + this.kmf(rev.falta) + ', cerca de ' + rev.eta + ' dias no seu ritmo.' });
+      if (all.consumo) {
+        const d = (all.consumo / all.ref - 1) * 100;
+        if (d < -5) out.push({ tone: 'warn', title: 'Consumo ' + this.num(Math.abs(d)) + '% pior que a referência', text: 'Média de ' + this.num(all.consumo, 1) + ' km/l contra ' + this.num(all.ref, 1) + ' km/l esperados para o ' + m.modelo + '. Calibragem e filtro de ar ajudam.' });
+        else out.push({ tone: 'good', title: 'Consumo dentro do esperado', text: this.num(all.consumo, 1) + ' km/l, perto dos ' + this.num(all.ref, 1) + ' km/l de referência do ' + m.modelo + '.' });
+      }
+      const ser = this.months(car), a = ser[4], b = ser[5];
+      if (a.total > 0 && b.total > 0) {
+        const d = (b.total / a.total - 1) * 100;
+        const ml = this.mesesL();
+        out.push({ tone: d > 10 ? 'warn' : d < -5 ? 'good' : 'info', title: ml[b.mm - 1] + ' custou ' + this.num(Math.abs(d)) + '% ' + (d >= 0 ? 'mais' : 'menos') + ' que ' + ml[a.mm - 1].toLowerCase(), text: this.brl(b.total, 0) + ' contra ' + this.brl(a.total, 0) + (d > 0 && b.maint > a.maint ? ', puxado pela manutenção.' : '.') });
+      }
+    }
+    return out.map((o, i) => Object.assign({ id: 'i' + i }, o, o.tone === 'good' ? { color: th.good, soft: th.goodSoft } : o.tone === 'warn' ? { color: th.bad, soft: th.badSoft } : { color: th.info, soft: th.infoSoft }));
+  }
+
+  // ===== Assistente (respostas a partir dos registros + base do modelo) =====
+  greet(car) {
+    const m = this.model(car.modelId);
+    const n = car.logs.length;
+    return { id: 'g-' + car.id, from: 'bot', text: 'Olá! Sou o assistente do ' + car.apelido + ' (' + this.nomeModelo(m) + ', ' + car.ano + ').\n' + (n ? 'Já analisei ' + n + ' registros seus e a base de referência do modelo.' : 'Ainda não há registros, então vou usar a base de referência do modelo.') + ' Pergunte sobre consumo, gastos, revisão ou custo por km.' };
+  }
+  answer(car, q) {
+    const t = q.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const m = this.model(car.modelId), all = this.metrics(car, 'all'), m30 = this.metrics(car, '30d'), rev = this.revisao(car);
+    const has = car.logs.length > 0, nome = car.apelido, mod = m.modelo;
+    const ser = this.months(car), ult = ser[5], ml = this.mesesL();
+    if (/^(oi|ola|bom dia|boa tarde|boa noite|e ai|hey)\b/.test(t)) return this.greet(car).text;
+    if (/por km|custo.{0,12}km|km.{0,12}custo|custo por quilometro/.test(t)) {
+      if (!all.custoKm) return 'Ainda não tenho quilometragem suficiente do ' + nome + '. Pela base, um ' + this.nomeModelo(m) + ' custa cerca de ' + this.brl(all.refKm) + ' por km (combustível + manutenção).';
+      const d = this.diff(all.custoKm, all.refKm, false);
+      return 'Desde ' + this.dataCurta(car.inicio) + ', o ' + nome + ' custou ' + this.brl(all.custoKm) + ' por km rodado (' + this.brl(all.total, 0) + ' em ' + this.kmf(all.km) + ').\nA referência do ' + mod + ' é ' + this.brl(all.refKm) + '/km, então você está ' + d.txt + ' da média.\nCombustível: ' + this.brl(all.fuel / all.km) + '/km · Manutenção: ' + this.brl(all.maint / all.km) + '/km.';
+    }
+    if (/consum|km\/l|kml|eficien|rendimento|media de combust/.test(t)) {
+      if (!all.consumo) return 'Preciso de pelo menos dois abastecimentos para medir o consumo real. A referência do ' + this.nomeModelo(m) + ' é ' + this.num(m.cidade, 1) + ' km/l na cidade e ' + this.num(m.estrada, 1) + ' km/l na estrada.';
+      const d = this.diff(all.consumo, all.ref, true);
+      return 'Seu consumo médio é ' + this.num(all.consumo, 1) + ' km/l' + (m30.consumo ? ' (' + this.num(m30.consumo, 1) + ' km/l nos últimos 30 dias)' : '') + '.\nA referência do ' + mod + ' é ' + this.num(all.ref, 1) + ' km/l em uso misto, então você está ' + d.txt + '.' + (d.good ? '' : '\nSe chegasse à referência, economizaria cerca de ' + this.brl(Math.max(0, all.fuel - all.fuel * all.consumo / all.ref) / all.dias * 30, 0) + ' por mês.');
+    }
+    if (/revis|manutenc|oleo|troca|oficina/.test(t)) {
+      const ms = car.logs.filter(l => l.tipo === 'maint').sort((a, b) => b.data.localeCompare(a.data)).slice(0, 2);
+      return 'A próxima revisão do ' + mod + ' é aos ' + this.kmf(rev.next) + ' (a cada ' + this.kmf(rev.iv) + '). Faltam ' + this.kmf(rev.falta) + ', previsão para ' + rev.etaDate + '.\nCusto médio de referência: ' + this.brl(rev.custo, 0) + '.' + (ms.length ? '\nÚltimas manutenções: ' + ms.map(l => l.desc + ' (' + this.dataCurta(l.data) + ', ' + this.brl(l.valor, 0) + ')').join('; ') + '.' : '');
+    }
+    if (/compar|referenc|modelo|outros carros|media do|normal/.test(t)) {
+      if (!has) return 'Base de referência do ' + this.nomeModelo(m) + ':\n· Consumo: ' + this.num(m.cidade, 1) + ' km/l cidade, ' + this.num(m.estrada, 1) + ' km/l estrada\n· Manutenção: ' + this.brl(m.manutAnual, 0) + ' por ano\n· Revisão a cada ' + this.kmf(m.revisaoKm) + ' (' + this.brl(m.custoRevisao, 0) + ')';
+      const anual = all.maint / all.dias * 365;
+      return 'Comparando o ' + nome + ' com a base do ' + mod + ':\n· Consumo: ' + this.num(all.consumo, 1) + ' vs ' + this.num(all.ref, 1) + ' km/l (' + this.diff(all.consumo, all.ref, true).txt + ')\n· Custo por km: ' + this.brl(all.custoKm) + ' vs ' + this.brl(all.refKm) + ' (' + this.diff(all.custoKm, all.refKm, false).txt + ')\n· Manutenção no ritmo anual: ' + this.brl(anual, 0) + ' vs ' + this.brl(m.manutAnual, 0) + ' (' + this.diff(anual, m.manutAnual, false).txt + ')';
+    }
+    if (/abastec|gasolin|combust|litro|posto|preco/.test(t)) {
+      const f = car.logs.filter(l => l.tipo === 'fuel').sort((a, b) => b.data.localeCompare(a.data))[0];
+      if (!f) return 'Nenhum abastecimento registrado ainda. Para o ' + mod + ', a referência é ' + this.brl(this.precoRef() / all.ref) + ' de combustível por km com gasolina a ' + this.brl(this.precoRef()) + '/L.';
+      return 'Último abastecimento: ' + this.num(f.litros, 1) + ' L em ' + this.dataCurta(f.data) + ', ' + this.brl(f.valor) + ' (' + this.brl(f.preco) + '/L).\nNos últimos 30 dias foram ' + this.num(m30.litros, 0) + ' L e ' + this.brl(m30.fuel, 0) + ' em combustível. Preço médio pago desde o início: ' + this.brl(all.precoMedio) + '/L.';
+    }
+    if (/rodei|rodado|quilomet|\bkm\b|distanc|dias|tempo de uso|odometro/.test(t)) {
+      return 'O odômetro está em ' + this.kmf(rev.odo) + '. Desde ' + this.dataCurta(car.inicio) + ' (' + all.totalDias + ' dias de uso no app) você rodou ' + this.kmf(all.km) + ', média de ' + this.num(all.kmDia, 0) + ' km por dia.' + (m30.km ? '\nNos últimos 30 dias: ' + this.kmf(m30.km) + '.' : '');
+    }
+    if (/gast|quanto|despesa|paguei|custo|dinheiro|mes/.test(t)) {
+      if (!has) return 'Ainda não há gastos registrados no ' + nome + '. Pela base, rodando 1.000 km por mês ele custaria cerca de ' + this.brl(all.refKm * 1000, 0) + ' (combustível + manutenção).';
+      return 'Nos últimos 30 dias o ' + nome + ' custou ' + this.brl(m30.total) + ': ' + this.brl(m30.fuel) + ' em combustível e ' + this.brl(m30.maint) + ' em manutenção.\nEm ' + ml[ult.mm - 1].toLowerCase() + ' foram ' + this.brl(ult.total, 0) + '. Desde ' + this.dataCurta(car.inicio) + ', o total é ' + this.brl(all.total, 0) + ' (' + this.brl(all.custoDia) + ' por dia).';
+    }
+    if (/pneu|calibr/.test(t)) {
+      const p = car.logs.filter(l => l.tipo === 'maint' && l.cat === 'Pneus').sort((a, b) => b.data.localeCompare(a.data))[0];
+      return 'Um jogo de pneus para o ' + mod + ' custa cerca de ' + this.brl(m.pneus, 0) + ' na base de referência.' + (p ? '\nÚltimo serviço de pneus: ' + p.desc.toLowerCase() + ' em ' + this.dataCurta(p.data) + '.' : '') + '\nCalibrar a cada 15 dias ajuda no consumo e na durabilidade.';
+    }
+    if (/econom|dica|reduz|melhor|gastar menos/.test(t)) {
+      const extra = all.consumo && all.consumo < all.ref ? Math.max(0, all.fuel - all.fuel * all.consumo / all.ref) / all.dias * 30 : 0;
+      return 'Três dicas para o ' + nome + ':\n1. Calibre os pneus a cada 15 dias.\n2. Evite acelerações fortes e mantenha a revisão em dia (faltam ' + this.kmf(rev.falta) + ').\n3. Compare o preço por litro: você pagou em média ' + (all.precoMedio ? this.brl(all.precoMedio) : this.brl(this.precoRef())) + '/L.' + (extra > 0 ? '\nChegando ao consumo de referência, a economia seria de ~' + this.brl(extra, 0) + ' por mês.' : '');
+    }
+    return 'Ainda não sei responder isso neste protótipo. Tente perguntar sobre consumo, gastos do mês, próxima revisão, custo por km ou comparar com a referência do modelo.';
+  }
+  send(text) {
+    const s = this.S();
+    const q = (typeof text === 'string' ? text : s.chatText).trim();
+    if (!q || s.typing) return;
+    const car = this.active(s), id = car.id;
+    const msgs = (s.chats[id] || [this.greet(car)]).concat([{ id: 'u' + Date.now(), from: 'me', text: q }]);
+    this.setState({ chats: Object.assign({}, s.chats, { [id]: msgs }), chatText: '', typing: true });
+    clearTimeout(this._t);
+    this._t = setTimeout(() => {
+      const s2 = this.S();
+      const car2 = s2.cars.find(c => c.id === id) || car;
+      const list = (s2.chats[id] || msgs).concat([{ id: 'b' + Date.now(), from: 'bot', text: this.answer(car2, q) }]);
+      this.setState({ chats: Object.assign({}, s2.chats, { [id]: list }), typing: false });
+    }, 750);
+  }
+  flash(text) {
+    this.setState({ toast: text });
+    clearTimeout(this._tt);
+    this._tt = setTimeout(() => this.setState({ toast: '' }), 2400);
+  }
+  componentWillUnmount() { clearTimeout(this._t); clearTimeout(this._tt); }
+
+  // ===== Ações =====
+  openAddLog(tipo) {
+    this.setState({ sheet: 'addLog', lf: { tipo, valor: '', litros: '', km: '', data: this.hoje(), cat: 'Revisão', desc: '', err: '' } });
+  }
+  saveLog() {
+    const s = this.S(), f = s.lf;
+    if (!f) return;
+    const car = this.active(s), odo = this.odoAt(car, '9999-12-31');
+    const valor = this.pf(f.valor), km = this.pf(f.km), litros = this.pf(f.litros);
+    const err = (e) => this.setState({ lf: Object.assign({}, f, { err: e }) });
+    if (!(valor > 0)) return err('Informe o valor pago.');
+    if (f.tipo === 'fuel' && !(litros > 0)) return err('Informe quantos litros foram abastecidos.');
+    if (!(km > 0)) return err('Informe a quilometragem do odômetro.');
+    if (km < odo) return err('O odômetro não pode ser menor que o último registro (' + this.kmf(odo) + ').');
+    const data = f.data && f.data <= this.hoje() ? f.data : this.hoje();
+    const log = f.tipo === 'fuel'
+      ? { id: 'n' + Date.now(), tipo: 'fuel', data, km, litros, preco: valor / litros, valor }
+      : { id: 'n' + Date.now(), tipo: 'maint', data, km, cat: f.cat, desc: f.desc.trim() || f.cat, valor };
+    const cars = s.cars.map(c => c.id === car.id ? Object.assign({}, c, { logs: c.logs.concat([log]) }) : c);
+    this.setState({ cars, sheet: null, lf: null });
+    this.flash(f.tipo === 'fuel' ? 'Abastecimento registrado' : 'Manutenção registrada');
+  }
+  openAddCar() {
+    this.setState({ sheet: 'addCar', cf: { modelId: 'hb20', apelido: '', ano: '2024', km: '', placa: '', err: '' } });
+  }
+  saveCar() {
+    const s = this.S(), f = s.cf;
+    if (!f) return;
+    const km = this.pf(f.km), m = this.model(f.modelId);
+    if (!(km >= 0) || String(f.km).trim() === '') return this.setState({ cf: Object.assign({}, f, { err: 'Informe a quilometragem atual do odômetro.' }) });
+    const car = { id: 'v' + Date.now(), modelId: m.id, apelido: f.apelido.trim() || m.modelo, ano: parseInt(f.ano, 10) || 2024, placa: f.placa.trim().toUpperCase() || 'SEM PLACA', kmInicial: km, inicio: this.hoje(), logs: [] };
+    const cars = s.cars.concat([car]);
+    this.setState({ cars, activeId: car.id, screen: 'app', tab: 'home', sheet: null, cf: null, selMonth: 5 });
+    this.flash(cars.length === 2 ? 'Pronto! Agora o app pergunta qual carro usar ao abrir' : 'Veículo adicionado à garagem');
+  }
+  newSession() {
+    const s = this.S();
+    if (s.cars.length < 2) return this.flash('Cadastre um 2º veículo para ativar o seletor');
+    this.setState({ screen: 'selector', sheet: null, tab: 'home' });
+  }
+
+  // ===== Valores para o template =====
+  renderVals() {
+    const s = this.S(), th = this.theme(), hoje = this.hoje();
+    const car = this.active(s), m = this.model(car.modelId);
+    const mt = this.metrics(car, s.period), all = this.metrics(car, 'all');
+    const hasLogs = car.logs.length > 0;
+    const rev = this.revisao(car);
+    const mc = this.mesesC(), ml = this.mesesL();
+    const chip = (on) => ({ on, bg: on ? th.chipOnBg : th.chipOffBg, fg: on ? th.chipOnFg : th.chipOffFg, bd: on ? th.chipOnBd : th.chipOffBd });
+    const set = (k) => (e) => this.setState({ [k]: e && e.target ? e.target.value : e });
+    const close = () => this.setState({ sheet: null });
+
+    // navegação
+    const tab = (key) => {
+      const on = s.tab === key;
+      return { on, fg: on ? th.navOnFg : th.navOffFg, bg: on ? th.navOnBg : th.navOffBg, go: () => this.setState({ tab: key, sheet: null }) };
+    };
+
+    // veículos
+    const row = (c, pick) => {
+      const cm = this.model(c.modelId), a = this.metrics(c, 'all'), on = c.id === car.id;
+      return {
+        id: c.id, apelido: c.apelido, modelo: this.nomeModelo(cm), ano: String(c.ano), placa: c.placa,
+        odo: this.kmf(this.odoAt(c, '9999-12-31')), initials: cm.modelo.slice(0, 2).toUpperCase(),
+        gasto30: this.brl(this.metrics(c, '30d').total, 0), custoKm: a.custoKm ? this.brl(a.custoKm) + '/km' : 'sem dados',
+        registros: c.logs.length + (c.logs.length === 1 ? ' registro' : ' registros'),
+        on, bd: on ? th.rowOnBd : th.rowOffBd, bg: on ? th.rowOnBg : th.rowOffBg,
+        pick: () => pick(c)
+      };
+    };
+    const pickStart = (c) => this.setState({ activeId: c.id, screen: 'app', tab: 'home', selMonth: 5, sheet: null });
+    const pickSwitch = (c) => { this.setState({ activeId: c.id, sheet: null, selMonth: 5 }); this.flash('Perfil ativo: ' + c.apelido); };
+    const pickGarage = (c) => { this.setState({ activeId: c.id, tab: 'home', selMonth: 5 }); this.flash('Perfil ativo: ' + c.apelido); };
+
+    // período
+    const periods = [['30d', '30 dias'], ['90d', '90 dias'], ['all', 'Tudo']].map(p => Object.assign({ key: p[0], label: p[1], pick: () => this.setState({ period: p[0] }) }, chip(s.period === p[0])));
+    const periodLabel = s.period === '30d' ? 'nos últimos 30 dias' : s.period === '90d' ? 'nos últimos 90 dias' : 'desde ' + this.dataCurta(car.inicio);
+
+    // KPIs
+    const dc = this.diff(mt.consumo, mt.ref, true), dk = this.diff(mt.custoKm, mt.refKm, false);
+    const fuelPct = mt.total ? Math.round(mt.fuel / mt.total * 100) : 0;
+    const k = {
+      total: this.brl(mt.total, 0), fuel: this.brl(mt.fuel, 0), maint: this.brl(mt.maint, 0),
+      km: this.num(mt.km), kmFull: this.kmf(mt.km), dias: String(mt.dias), kmDia: this.num(mt.kmDia, 0),
+      custoKm: mt.custoKm != null ? this.brl(mt.custoKm) : '—', custoDia: this.brl(mt.custoDia),
+      custoKmRef: this.brl(mt.refKm), custoKmDiff: dk.txt, custoKmGood: dk.good, custoKmColor: dk.good ? th.good : th.bad,
+      consumo: mt.consumo ? this.num(mt.consumo, 1) : '—', consumoRef: this.num(mt.ref, 1),
+      consumoDiff: dc.txt, consumoGood: dc.good, consumoColor: dc.good ? th.good : th.bad, hasConsumo: !!mt.consumo, hasCustoKm: mt.custoKm != null,
+      precoMedio: mt.precoMedio ? this.brl(mt.precoMedio) : '—', litros: this.num(mt.litros, 0),
+      fuelPct: fuelPct + '%', maintPct: (mt.total ? 100 - fuelPct : 0) + '%',
+      fuelW: (mt.total ? fuelPct : 0) + '%', maintW: (mt.total ? 100 - fuelPct : 0) + '%',
+      registros: String(mt.logs.length)
+    };
+    const w = (a, b) => { const mx = Math.max(a || 0, b || 0) || 1; return [Math.round((a || 0) / mx * 100) + '%', Math.round((b || 0) / mx * 100) + '%']; };
+    const wc = w(mt.consumo, mt.ref), wk = w(mt.custoKm, mt.refKm);
+    const cmp = { consumoW: wc[0], consumoRefW: wc[1], custoW: wk[0], custoRefW: wk[1] };
+
+    // gráfico mensal
+    const series = this.months(car);
+    const sel = Math.min(Math.max(s.selMonth, 0), series.length - 1);
+    const mode = s.chartMode;
+    const vals = series.map(x => mode === 'km' ? x.km : mode === 'custo' ? x.custoKm : x.total);
+    const max = Math.max.apply(null, vals) || 1;
+    const H = th.chartH, n = series.length;
+    const pts = series.map((x, i) => ({ xp: (i + 0.5) / n * 100, yp: 100 - (vals[i] / max) * 86 - 6 }));
+    const line = 'M ' + pts.map(p => p.xp.toFixed(2) + ' ' + p.yp.toFixed(2)).join(' L ');
+    const sx = series[sel];
+    const chart = {
+      isGastos: mode === 'gastos', isKm: mode === 'km', isCusto: mode === 'custo', isBars: mode !== 'custo',
+      modes: [['gastos', 'Gastos'], ['km', 'Km rodados'], ['custo', 'R$ por km']].map(p => Object.assign({ key: p[0], label: p[1], pick: () => this.setState({ chartMode: p[0] }) }, chip(mode === p[0]))),
+      unit: mode === 'km' ? 'km' : mode === 'custo' ? 'R$/km' : 'R$',
+      maxLabel: mode === 'km' ? this.num(max) + ' km' : mode === 'custo' ? this.brl(max) : this.brl(max, 0),
+      empty: !series.some(x => x.total > 0 || x.km > 0),
+      bars: series.map((x, i) => ({
+        id: 'b' + i, label: mc[x.mm - 1], selected: i === sel, op: i === sel ? 1 : th.dim,
+        fuelH: Math.round(x.fuel / max * H), maintH: Math.round(x.maint / max * H),
+        valH: Math.max(3, Math.round(vals[i] / max * H)),
+        short: mode === 'km' ? this.num(x.km) : mode === 'custo' ? this.num(x.custoKm, 2) : this.num(x.total),
+        pick: () => this.setState({ selMonth: i })
+      })),
+      line, area: line + ' L ' + pts[n - 1].xp.toFixed(2) + ' 100 L ' + pts[0].xp.toFixed(2) + ' 100 Z',
+      dots: pts.map((p, i) => ({ id: 'd' + i, left: p.xp.toFixed(2) + '%', top: p.yp.toFixed(2) + '%', selected: i === sel, op: i === sel ? 1 : th.dim, pick: () => this.setState({ selMonth: i }) })),
+      sel: { label: ml[sx.mm - 1] + ' ' + sx.yy, total: this.brl(sx.total, 0), fuel: this.brl(sx.fuel, 0), maint: this.brl(sx.maint, 0), km: this.kmf(sx.km), custoKm: sx.km ? this.brl(sx.custoKm) : '—' }
+    };
+
+    // manutenção por categoria (no período)
+    const catMap = {};
+    for (const l of mt.logs) if (l.tipo === 'maint') catMap[l.cat] = (catMap[l.cat] || 0) + l.valor;
+    const catMax = Math.max.apply(null, Object.values(catMap).concat([1]));
+    const allCats = this.cats();
+    const catsList = Object.keys(catMap).sort((a, b) => catMap[b] - catMap[a]).map(c => ({ id: c, name: c, total: this.brl(catMap[c], 0), w: Math.round(catMap[c] / catMax * 100) + '%', color: th.cats[Math.max(0, allCats.indexOf(c)) % th.cats.length] }));
+
+    const fuels = car.logs.filter(l => l.tipo === 'fuel').sort((a, b) => b.data.localeCompare(a.data));
+    const lf0 = fuels[0];
+
+    // registros
+    const groups = [];
+    const filtered = car.logs.filter(l => s.logFilter === 'all' || l.tipo === s.logFilter).slice().sort((a, b) => b.data.localeCompare(a.data) || b.km - a.km);
+    for (const l of filtered) {
+      const key = l.data.slice(0, 7);
+      let g = groups[groups.length - 1];
+      if (!g || g.key !== key) { const p = key.split('-').map(Number); g = { key, id: key, label: ml[p[1] - 1] + ' ' + p[0], sum: 0, items: [] }; groups.push(g); }
+      g.sum += l.valor;
+      const isFuel = l.tipo === 'fuel';
+      g.items.push({
+        id: l.id, isFuel, isMaint: !isFuel, title: isFuel ? 'Abastecimento' : l.desc,
+        sub: isFuel ? this.num(l.litros, 1) + ' L · ' + this.brl(l.preco) + '/L' : (l.desc === l.cat ? 'Manutenção' : l.cat),
+        km: this.kmf(l.km), valor: this.brl(l.valor), data: this.dataCurta(l.data),
+        color: isFuel ? th.fuel : th.cats[Math.max(0, allCats.indexOf(l.cat)) % th.cats.length]
+      });
+    }
+    groups.forEach(g => { g.total = this.brl(g.sum, 0); g.count = g.items.length + (g.items.length === 1 ? ' registro' : ' registros'); });
+    const logFilters = [['all', 'Todos'], ['fuel', 'Combustível'], ['maint', 'Manutenção']].map(p => Object.assign({ key: p[0], label: p[1], pick: () => this.setState({ logFilter: p[0] }) }, chip(s.logFilter === p[0])));
+
+    // formulário de registro
+    const f = s.lf || { tipo: 'fuel', valor: '', litros: '', km: '', data: hoje, cat: 'Revisão', desc: '', err: '' };
+    const setF = (key) => (e) => { const cur = this.S().lf || f; this.setState({ lf: Object.assign({}, cur, { [key]: e && e.target ? e.target.value : e, err: '' }) }); };
+    const pv = this.pf(f.valor), pl = this.pf(f.litros);
+    const lf = {
+      isFuel: f.tipo === 'fuel', isMaint: f.tipo !== 'fuel', title: f.tipo === 'fuel' ? 'Novo abastecimento' : 'Nova manutenção',
+      tipos: [['fuel', 'Abastecimento'], ['maint', 'Manutenção']].map(p => Object.assign({ key: p[0], label: p[1], pick: () => setF('tipo')(p[0]) }, chip(f.tipo === p[0]))),
+      cats: allCats.map(c => Object.assign({ key: c, label: c, pick: () => setF('cat')(c) }, chip(f.cat === c))),
+      valor: f.valor, litros: f.litros, km: f.km, data: f.data, desc: f.desc, hoje,
+      setValor: setF('valor'), setLitros: setF('litros'), setKm: setF('km'), setData: setF('data'), setDesc: setF('desc'),
+      preco: pv > 0 && pl > 0 ? this.brl(pv / pl) + '/L' : '', hasPreco: pv > 0 && pl > 0,
+      kmHint: 'Último registro: ' + this.kmf(rev.odo),
+      err: f.err, hasErr: !!f.err, save: () => this.saveLog()
+    };
+
+    // formulário de veículo
+    const g = s.cf || { modelId: 'hb20', apelido: '', ano: '2024', km: '', placa: '', err: '' };
+    const setG = (key) => (e) => { const cur = this.S().cf || g; this.setState({ cf: Object.assign({}, cur, { [key]: e && e.target ? e.target.value : e, err: '' }) }); };
+    const gm = this.model(g.modelId);
+    const cf = {
+      apelido: g.apelido, ano: g.ano, km: g.km, placa: g.placa,
+      setApelido: setG('apelido'), setAno: setG('ano'), setKm: setG('km'), setPlaca: setG('placa'),
+      models: this.baseModels().map(x => Object.assign({ id: x.id, label: x.marca + ' ' + x.modelo, sub: x.motor + ' · ' + this.num(this.misto(x), 1) + ' km/l', pick: () => setG('modelId')(x.id) }, chip(g.modelId === x.id))),
+      sel: { nome: this.nomeModelo(gm), consumo: this.num(this.misto(gm), 1) + ' km/l', manut: this.brl(gm.manutAnual, 0) + '/ano', custoKm: this.brl(this.refCustoKm(gm)) + '/km', revisao: 'a cada ' + this.kmf(gm.revisaoKm) },
+      err: g.err, hasErr: !!g.err, save: () => this.saveCar(),
+      enablesSelector: s.cars.length === 1
+    };
+
+    // chat
+    const msgs = (s.chats[car.id] || [this.greet(car)]).map(x => ({ id: x.id, isBot: x.from === 'bot', isMe: x.from === 'me', text: x.text }));
+    const chat = {
+      msgs: msgs.slice().reverse(), typing: s.typing, text: s.chatText,
+      setText: set('chatText'), send: () => this.send(),
+      onKey: (e) => { if (e && e.key === 'Enter') { e.preventDefault(); this.send(); } },
+      suggestions: ['Como está meu consumo?', 'Quanto gastei este mês?', 'Quando é a próxima revisão?', 'Qual meu custo por km?', 'Compare com a referência', 'Dicas para economizar'].map((q, i) => ({ id: 'q' + i, label: q, ask: () => this.send(q) }))
+    };
+
+    const multi = s.cars.length > 1;
+    return {
+      th,
+      isSelector: s.screen === 'selector', isApp: s.screen !== 'selector',
+      nav: { home: tab('home'), logs: tab('logs'), chat: tab('chat'), garage: tab('garage') },
+      tabHome: s.tab === 'home', tabLogs: s.tab === 'logs', tabChat: s.tab === 'chat', tabGarage: s.tab === 'garage',
+      multi, carCount: s.cars.length + (s.cars.length === 1 ? ' veículo' : ' veículos'),
+      car: { apelido: car.apelido, modelo: this.nomeModelo(m), marca: m.marca, ano: String(car.ano), placa: car.placa, odo: this.kmf(rev.odo), dias: String(all.totalDias), inicio: this.dataCurta(car.inicio), initials: m.modelo.slice(0, 2).toUpperCase() },
+      cars: s.cars.map(c => row(c, pickGarage)),
+      startCars: s.cars.map(c => row(c, pickStart)),
+      switchCars: s.cars.map(c => row(c, pickSwitch)),
+      hasLogs, noLogs: !hasLogs,
+      periods, periodLabel, k, cmp, chart,
+      cats: catsList, hasCats: catsList.length > 0,
+      lastFuel: lf0 ? { data: this.dataCurta(lf0.data), litros: this.num(lf0.litros, 1) + ' L', valor: this.brl(lf0.valor), preco: this.brl(lf0.preco) + '/L' } : { data: '', litros: '', valor: '', preco: '' },
+      hasLastFuel: !!lf0,
+      rev: { next: this.kmf(rev.next), falta: this.kmf(rev.falta), pct: rev.pct, pctW: rev.pct + '%', eta: rev.eta + ' dias', etaDate: rev.etaDate, custo: this.brl(rev.custo, 0), iv: this.kmf(rev.iv), soon: rev.falta <= 2000 },
+      insights: this.insights(car, th),
+      ref: { nome: this.nomeModelo(m), modelo: m.modelo, cidade: this.num(m.cidade, 1), estrada: this.num(m.estrada, 1), misto: this.num(this.misto(m), 1), manutAnual: this.brl(m.manutAnual, 0), custoRevisao: this.brl(m.custoRevisao, 0), revisaoKm: this.kmf(m.revisaoKm), custoKm: this.brl(this.refCustoKm(m)), mes1000: this.brl(this.refCustoKm(m) * 1000, 0), fuelMes: this.brl(this.precoRef() / this.misto(m) * 1000, 0), maintMes: this.brl(m.manutAnual / 12, 0), pneus: this.brl(m.pneus, 0), preco: this.brl(this.precoRef()) + '/L' },
+      models: this.baseModels().map(x => ({ id: x.id, nome: x.marca + ' ' + x.modelo, motor: x.motor, cidade: this.num(x.cidade, 1), estrada: this.num(x.estrada, 1), misto: this.num(this.misto(x), 1), manutAnual: this.brl(x.manutAnual, 0), revisao: this.kmf(x.revisaoKm), custoKm: this.brl(this.refCustoKm(x)), mes1000: this.brl(this.refCustoKm(x) * 1000, 0), mine: s.cars.some(c => c.modelId === x.id) })),
+      groups, logFilters, noGroups: groups.length === 0, logCount: car.logs.length + ' registros',
+      lf, cf, chat,
+      sheetAddLog: s.sheet === 'addLog', sheetAddCar: s.sheet === 'addCar', sheetSwitch: s.sheet === 'switch', sheetModels: s.sheet === 'models', anySheet: !!s.sheet,
+      closeSheet: close,
+      openSwitch: () => multi ? this.setState({ sheet: 'switch' }) : this.setState({ tab: 'garage', sheet: null }),
+      openModels: () => this.setState({ sheet: 'models' }),
+      openAddCar: () => this.openAddCar(),
+      addFuel: () => this.openAddLog('fuel'),
+      addMaint: () => this.openAddLog('maint'),
+      goChat: () => this.setState({ tab: 'chat', sheet: null }),
+      goLogs: () => this.setState({ tab: 'logs', sheet: null }),
+      goGarage: () => this.setState({ tab: 'garage', sheet: null }),
+      newSession: () => this.newSession(),
+      sessionHint: multi ? 'Com ' + s.cars.length + ' veículos, o app pergunta qual carro usar sempre que é aberto.' : 'Ao cadastrar o 2º veículo, o app passa a perguntar qual carro usar ao abrir.',
+      toast: { show: !!s.toast, text: s.toast },
+      hoje: this.dataCurta(hoje)
+    };
+  }
+}
+</script>
+</body>
+</html>
