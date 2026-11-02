@@ -2,8 +2,6 @@
 
 App mobile de gestão veicular para uso diário de pessoa física. Este repositório guarda a **fase de protótipo**: três estilos visuais interativos de uma tela de celular (390 × 844), todos com a mesma lógica.
 
-> Nos protótipos o app ainda aparece com o nome provisório **"Rodagem"**.
-
 ## O que o protótipo faz
 
 - **Seleção de perfil por veículo**: a partir do 2º carro cadastrado, toda abertura do app pergunta qual carro usar, e todas as métricas passam a refletir o carro escolhido. "Simular nova sessão", na Garagem, mostra o seletor de novo.
