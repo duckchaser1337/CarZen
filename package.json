@@ -5,7 +5,8 @@
   "description": "Protótipos do CarZen, app mobile de gestão veicular",
   "scripts": {
     "start": "node scripts/serve.js",
-    "test": "node scripts/test.js logica/logic.js && node scripts/check.js prototipo/Main.dc.html && node scripts/check.js prototipo/Cockpit.dc.html && node scripts/check.js prototipo/Pop.dc.html"
+    "build": "node scripts/build.js",
+    "test": "node scripts/validar-base.js && node scripts/test.js && node scripts/check.js prototipo/Main.dc.html"
   },
   "dependencies": {
     "react": "18.3.1",
